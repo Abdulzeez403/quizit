@@ -20,7 +20,7 @@ import {
     DrawerTrigger,
 } from '@/components/ui/drawer';
 
-import {useMediaQuery} from "@/hooks/use-media-query"
+import { useMediaQuery } from "@/hooks/use-media-query"
 
 
 interface ResponsiveDrawerDialogProps {
@@ -43,42 +43,53 @@ export const ResponsiveDrawerDialog: React.FC<ResponsiveDrawerDialogProps> = ({
     dialogClassName = "sm:max-w-[425px]",
     drawerClassName = "",
 }) => {
-    const isDesktop = useMediaQuery("(min-width: 768px)");
+    // const isDesktop = useMediaQuery("(min-width: 768px)");
 
-    if (isDesktop) {
-        return (
-            <Dialog open={isOpen} onOpenChange={onClose}>
-                {/* <DialogTrigger asChild>
-                    <Button variant={buttonVariant}>{buttonLabel}</Button>
-                </DialogTrigger> */}
-                <DialogContent className={dialogClassName}>
-                    <DialogHeader>
-                        <DialogTitle>{title}</DialogTitle>
-                        <DialogDescription>{description}</DialogDescription>
-                    </DialogHeader>
-                    {children}
-                </DialogContent>
-            </Dialog>
-        );
-    }
+    // if (isDesktop) {
+    //     return (
+    //         <Dialog open={isOpen} onOpenChange={onClose}>
+    //             {/* <DialogTrigger asChild>
+    //                 <Button variant={buttonVariant}>{buttonLabel}</Button>
+    //             </DialogTrigger> */}
+    //             <DialogContent className={dialogClassName}>
+    //                 <DialogHeader>
+    //                     <DialogTitle>{title}</DialogTitle>
+    //                     <DialogDescription>{description}</DialogDescription>
+    //                 </DialogHeader>
+    //                 {children}
+    //             </DialogContent>
+    //         </Dialog>
+    //     );
+    // }
 
     return (
-        <Drawer open={isOpen} onOpenChange={onClose}>
-            {/* <DrawerTrigger asChild>
-                <Button variant={buttonVariant}>{buttonLabel}</Button>
-            </DrawerTrigger> */}
-            <DrawerContent className={drawerClassName}>
-                <DrawerHeader className="text-left">
-                    <DrawerTitle>{title}</DrawerTitle>
-                    <DrawerDescription>{description}</DrawerDescription>
-                </DrawerHeader>
+        // <Drawer open={isOpen} onOpenChange={onClose}>
+        //     <DrawerContent className={drawerClassName}>
+        //         <DrawerHeader className="text-left">
+        //             <DrawerTitle>{title}</DrawerTitle>
+        //             <DrawerDescription>{description}</DrawerDescription>
+        //         </DrawerHeader>
+        //         {children}
+        //         <DrawerFooter className="pt-2">
+        //             <DrawerClose asChild>
+        //                 <Button variant="outline">Cancel</Button>
+        //             </DrawerClose>
+        //         </DrawerFooter>
+        //     </DrawerContent>
+        // </Drawer>
+
+        <Dialog open={isOpen} onOpenChange={onClose}>
+            {/* <DialogTrigger asChild>
+                    <Button variant={buttonVariant}>{buttonLabel}</Button>
+                </DialogTrigger> */}
+            <DialogContent className={dialogClassName}>
+                <DialogHeader>
+                    <DialogTitle>{title}</DialogTitle>
+                    <DialogDescription>{description}</DialogDescription>
+                </DialogHeader>
                 {children}
-                <DrawerFooter className="pt-2">
-                    <DrawerClose asChild>
-                        <Button variant="outline">Cancel</Button>
-                    </DrawerClose>
-                </DrawerFooter>
-            </DrawerContent>
-        </Drawer>
+            </DialogContent>
+        </Dialog>
     );
+    // );
 };

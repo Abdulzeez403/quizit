@@ -95,7 +95,7 @@ export const QuizDetial = () => {
 
 
             <div className='bg-customPrimary'>
-                <div className=' py-5 pageWidth flex justify-between'>
+                <div className=' py-2 pageWidth flex justify-between items-center'>
                     <h3 className='text-white'>QuizIt</h3>
                     <div className='flex gap-x-5 items-center text-white'>
                         <h4>Muhammad</h4>
@@ -105,7 +105,7 @@ export const QuizDetial = () => {
                 </div>
             </div>
 
-            <div className='pageWidth pt-5'>
+            <div className='px-4 md:pageWidth lg:pageWidth'>
                 {loading ? (
                     <div className="flex justify-center items-center h-64">
                         <LoadingSpinner />
