@@ -50,6 +50,7 @@ export const AirtimeForm: React.FC = () => {
             notify.error("Oooop!! You dont have sufficient Coin to perform is transaction")
         } else {
             await buyAirtime(payload as any)
+            console.log(payload)
             createReward(userCookie?._id, {
                 points: Number(selectedAmount),
                 type: `${selectedAirtime} Airtime`,
@@ -129,7 +130,7 @@ export const AirtimeForm: React.FC = () => {
                     <FormField label="Phone Number" name="phoneNumber" type="text" />
 
                     <div>
-                        <Button type="submit" className=" mt-4 my-3 bg-black" disabled={isSubmitting}>
+                        <Button type="submit" className=" mt-4 my-3 bg-black hover:bg-slate-300" disabled={isSubmitting}>
 
                             Submit
                         </Button>

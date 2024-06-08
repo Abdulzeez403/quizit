@@ -6,7 +6,6 @@ import { Button } from '@/components/ui/button';
 import { FormField } from '../components/textInput/textInput';
 import { useAuthContext } from './context';
 import GenderSelect from '../components/selector';
-import LoadingSpinner from '../components/loader';
 
 
 interface SignUpFormValues {
@@ -48,7 +47,7 @@ export const SignUpForm: React.FC = () => {
     };
 
     return (
-        <div>
+        <div className="">
 
             <Formik
                 initialValues={initialValues}
@@ -63,15 +62,11 @@ export const SignUpForm: React.FC = () => {
                         <GenderSelect label="Gender" name="gender" />
                         <FormField label="Password" name="password" type="password" className="my-4" />
                         <div>
-                            {
-                                loading ? (
-                                    <LoadingSpinner />
-                                ) : (
-                                    <Button type="submit" className="mt-4 bg-black" disabled={isSubmitting}>
-                                        Submit
-                                    </Button>
-                                )
-                            }
+
+                            <Button type="submit" className="mt-4 bg-black" disabled={isSubmitting}>
+                                Submit
+                            </Button>
+
 
                         </div>
                     </Form>

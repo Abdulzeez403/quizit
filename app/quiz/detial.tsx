@@ -8,12 +8,27 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import LoadingSpinner from '../components/loader';
 import { Button } from '@/components/ui/button';
 import Cookies from 'universal-cookie';
+import { useAuthContext } from '../(auth)/context';
 
 
 
 
 
 export const QuizDetial = () => {
+
+    const { currentUser } = useAuthContext();
+    const cookies = new Cookies();
+    let userCookie = cookies.get("user");
+
+
+    useEffect(() => {
+
+        if (userCookie && userCookie._id) {
+            currentUser(userCookie._id);
+        } else {
+            console.error("User cookie not found or malformed");
+        }
+    }, []);
 
 
 
@@ -103,8 +118,8 @@ export const QuizDetial = () => {
                 <div className=' py-2 pageWidth flex justify-between items-center'>
                     <h3 className='text-white'>QuizIt</h3>
                     <div className='flex gap-x-5 items-center text-white'>
-                        <h4>Muhammad</h4>
-                        <Image src={User} alt="image" className='rounded-full' width={40} height={40} />
+                        <h4>{userCookie?.username}</h4>
+                        {/* <Image src={User} alt="image" className='rounded-full' width={40} height={40} /> */}
                     </div>
 
                 </div>

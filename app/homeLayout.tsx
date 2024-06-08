@@ -19,7 +19,7 @@ interface IProps {
 
 const HomeLayout = ({ handleOpenModal, handleCloseModal, open }: IProps) => {
 
-    const { currentUser, user, signOut } = useAuthContext();
+    const { currentUser, user, signOut, loading } = useAuthContext();
     const cookies = new Cookies();
     let userCookie = cookies.get("user");
 
@@ -31,7 +31,17 @@ const HomeLayout = ({ handleOpenModal, handleCloseModal, open }: IProps) => {
         } else {
             console.error("User cookie not found or malformed");
         }
-    }, [currentUser]);
+    }, []);
+
+
+    // useEffect(() => {
+    //     if (loading) {
+    //         handleOpenModal();
+    //     }
+    // }, [loading]);
+
+
+
 
 
 
@@ -55,7 +65,7 @@ const HomeLayout = ({ handleOpenModal, handleCloseModal, open }: IProps) => {
                         {
                             userCookie?._id ? (
 
-                                <div className='flex'>
+                                <div className='flex gap-x-4'>
                                     <Button className='bg-foreground border-none hidden md:flex lg:flex bg-customSecondary text-white'>
                                         <Link href="/admin">{user?.username}</Link>
                                     </Button>
@@ -67,8 +77,8 @@ const HomeLayout = ({ handleOpenModal, handleCloseModal, open }: IProps) => {
 
 
                             ) : (
-                                <div className="pl-4 flex space-x-4 ">
-                                    <Button onClick={handleOpenModal} className="text-black bg-customSecondary">Login/Register</Button>
+                                <div className="pl-4 flex ">
+                                    <Button onClick={handleOpenModal} className="text-customPrimary bg-customSecondary hover:bg-slate-300">Login/Register</Button>
                                 </div>
 
                             )
@@ -85,19 +95,27 @@ const HomeLayout = ({ handleOpenModal, handleCloseModal, open }: IProps) => {
                                     <SheetTitle>QiuzIt</SheetTitle>
                                     <div className="block items-center">
                                         <div>
-                                            <Link href="/career" className=' text-[20px]'>Home</Link>
+                                            <Link href="/" className=' text-[20px]'>Home</Link>
                                         </div>
                                         <div>
 
-                                            <Link href="/career" className='text-[20px]'>Blog</Link>
+                                            <Link href="/" className='text-[20px]'>Blog</Link>
                                         </div>
                                         <div>
 
-                                            <Link href="/career" className='text-[20px]'>FAQ</Link>
+                                            <Link href="/" className='text-[20px]'>FAQ</Link>
                                         </div>
+
+
+
+                                        <div className='
+                                        border-none p-2 rounded-md bg-customSecondary text-customPrimary' onClick={() => { signOut() }}>
+                                            LogOut
+                                        </div>
+
 
                                     </div>
-                                    <Button onClick={handleOpenModal} className="text-black bg-customSecondary">Login/Register</Button>
+
 
                                 </SheetHeader>
                             </SheetContent>
@@ -109,25 +127,27 @@ const HomeLayout = ({ handleOpenModal, handleCloseModal, open }: IProps) => {
             </div >
 
             <ResponsiveDrawerDialog
-                title="Login"
+                title="Login/Register"
                 description="Let's the journey begins!"
                 isOpen={open}
                 onClose={handleCloseModal}
             >
-                <Tabs defaultValue="signin" className="w-[400px] pr-4">
-                    <TabsList className="grid w-full grid-cols-2">
-                        <TabsTrigger value="signin" className='bg-customSecondary'>SignIn</TabsTrigger>
+                <Tabs defaultValue="signin" className="w-[350px] pr-4">
+                    <TabsList className="w-80 grid grid-cols-2">
+                        <TabsTrigger value="signin" className=''>SignIn</TabsTrigger>
                         <TabsTrigger value="signup">SignUp</TabsTrigger>
                     </TabsList>
 
                     <TabsContent value="signin">
                         <SignInForm />
                     </TabsContent>
+
                     <TabsContent value="signup">
                         <SignUpForm />
                     </TabsContent>
 
                 </Tabs>
+
 
             </ResponsiveDrawerDialog>
 

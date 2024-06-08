@@ -23,7 +23,7 @@ export const Herosecton = ({ handleOpenModal }: IProps) => {
         } else {
             console.error("User cookie not found or malformed");
         }
-    }, [currentUser]);
+    }, []);
 
     return (
         <div className='herobg'>
@@ -37,9 +37,9 @@ export const Herosecton = ({ handleOpenModal }: IProps) => {
 
                             {
                                 userCookie?._id ? (<Link href="/quiz">
-                                    <Button className='bg-customSecondary text-customPrimary'>Get Started</Button>
+                                    <Button className='bg-customSecondary text-customPrimary hover:bg-slate-300'>Get Started</Button>
                                 </Link>) : (
-                                    <Button className='bg-green-300' onClick={handleOpenModal}>Get Started</Button>
+                                    <Button className='bg-customSecondary text-customPrimary hover:bg-slate-300' onClick={handleOpenModal}>Get Started</Button>
                                 )
                             }
 
@@ -48,7 +48,7 @@ export const Herosecton = ({ handleOpenModal }: IProps) => {
                     </div>
 
                     <div className="hidden md:flex lg:flex">
-                        <Image src={heroImage} alt="image" width={500} height={500} />
+                        <Image src={heroImage} alt="image" width={500} height={500} className="rounded-lg" />
                     </div>
                 </div>
             </div>

@@ -34,8 +34,9 @@ export const SignInForm: React.FC = () => {
 
     };
 
-    const handleSubmit = (values: SignInFormValues) => {
-        signIn(values)
+    const handleSubmit = async (values: SignInFormValues) => {
+        await signIn(values)
+        // window.location.reload();
         console.log(values);
     };
 
@@ -52,7 +53,7 @@ export const SignInForm: React.FC = () => {
                     <FormField label="Password" name="password" type="password" />
 
                     <div>
-                        <Button type="submit" className="w-full mt-4 my-3 bg-black" disabled={isSubmitting}>
+                        <Button type="submit" className="w-full mt-4 my-3 bg-black hover:bg-slate-300" disabled={isSubmitting}>
                             Submit
                         </Button>
                     </div>

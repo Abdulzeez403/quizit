@@ -143,7 +143,7 @@ export const SidebarComponent = ({ children }: IProps) => {
                             <GiHamburgerMenu color="block" size={30} />
                         </div>
 
-                        <div>
+                        {/* <div>
                             <Sheet>
                                 <SheetTrigger asChild>
                                     <Button size="icon" variant="outline" className="sm:hidden">
@@ -192,7 +192,7 @@ export const SidebarComponent = ({ children }: IProps) => {
                                     </nav>
                                 </SheetContent>
                             </Sheet>
-                        </div>
+                        </div> */}
                     </div>
 
                     <div className="p-5">

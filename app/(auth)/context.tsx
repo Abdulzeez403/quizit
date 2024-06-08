@@ -142,12 +142,7 @@ export const AuthProvider: React.FC<IProps> = ({ children }) => {
     const signOut = async () => {
         cookies.remove('user');
         cookies.remove('token');
-        window.location.reload();
-
-
-
-
-        // router.push('/login');
+        // window.location.reload();
     };
 
 

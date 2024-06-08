@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from 'react'
 import { IoIosSearch } from "react-icons/io";
 import CardComponent from '../../components/card';
-import { Table, TableBody } from '@/components/ui/table';
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { IPerformance } from '@/app/data';
 import TableRowComponent from '@/app/components/tables/readTable';
 import { CiCoinInsert } from "react-icons/ci";
@@ -77,7 +77,7 @@ const DashboardView = () => {
                 {/* Other components */}
 
             </div>
-            <div>
+            <div className='w-full md:w-0 lg:w-0'>
                 <Barchart />
             </div>
 
@@ -89,7 +89,16 @@ const DashboardView = () => {
                     <p className='text-sm'>Lorem ipsum dolor sit amet consectetur adipisicing</p>
                 </div>
                 <Table className='border-2'>
+                    <TableHeader>
+                        <TableRow>
+                            <TableHead className="w-[100px]">Subject</TableHead>
+                            <TableHead>Scores</TableHead>
+                            <TableHead>Option</TableHead>
+                            {/* <TableHead className="text-right">Amount</TableHead> */}
+                        </TableRow>
+                    </TableHeader>
                     <TableBody>
+
                         {Array.isArray(performance) ? (
                             performance.slice(0, 10).map((row, index) => (
                                 <TableRowComponent

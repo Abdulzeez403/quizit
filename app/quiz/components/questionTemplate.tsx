@@ -46,7 +46,7 @@ const QuestionTemplate = ({ questions, subject }: IQuestionProps) => {
         const userId = userCookie?._id;
         const newPerformance: IPerformance = {
             subject,
-            score,
+            score: 2000,
             points: score
         };
 
@@ -171,12 +171,12 @@ const QuestionTemplate = ({ questions, subject }: IQuestionProps) => {
 
                                         <div>
                                             <Link href="/admin/reward" className="pr-2">
-                                                <Button className="bg-customSecondary text-white px-4 py-2 rounded">
+                                                <Button className="bg-customSecondary text-white px-4 py-2 rounded hover:bg-slate-300">
                                                     Reward
                                                 </Button>
                                             </Link>
 
-                                            <Button onClick={handleReload} className="bg-customSecondary text-white px-4 py-2 rounded">
+                                            <Button onClick={handleReload} className="bg-customSecondary text-white px-4 py-2 rounded hover:bg-slate-300">
                                                 Try Again
                                             </Button>
 
