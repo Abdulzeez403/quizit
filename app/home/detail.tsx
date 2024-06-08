@@ -6,11 +6,13 @@ import SubjectSection from './components/subject';
 import PricingSection from './components/pricing';
 import PricingPlans from './components/pricing';
 
-
-const HomePage = () => {
+interface IProps {
+    handleOpenModal: () => void;
+}
+const HomePage = ({ handleOpenModal }: IProps) => {
     return (
         <div>
-            <Herosecton />
+            <Herosecton handleOpenModal={handleOpenModal} />
             <Howitwork />
             <SubjectSection />
             <PricingPlans />

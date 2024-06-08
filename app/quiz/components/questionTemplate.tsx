@@ -1,13 +1,24 @@
+import { useAuthContext } from '@/app/(auth)/context';
+import LoadingSpinner from '@/app/components/loader';
+import RingSpinner from '@/app/components/loader/circlering';
 import { ResponsiveDrawerDialog } from '@/app/components/modal/responsivedrawer';
-import { IQuestion } from '@/app/data';
+import { IPerformance, IQuestion } from '@/app/data';
 import { Button } from '@/components/ui/button';
-import React, { useState } from 'react';
+import Link from 'next/link';
+import React, { useEffect, useState } from 'react';
+import Cookies from 'universal-cookie';
 
 interface IQuestionProps {
     questions: IQuestion[];
+    subject: string
 }
 
-const QuestionTemplate = ({ questions }: IQuestionProps) => {
+const QuestionTemplate = ({ questions, subject }: IQuestionProps) => {
+    const { updateUser, loading } = useAuthContext()
+    const cookies = new Cookies();
+    let userCookie = cookies.get("user");
+
+
     const [currentQuestion, setCurrentQuestion] = useState(0);
     const [selectedAnswers, setSelectedAnswers] = useState<{ [key: number]: string | null }>({});
     const [theScore, setTheScore] = useState(0);
@@ -19,6 +30,32 @@ const QuestionTemplate = ({ questions }: IQuestionProps) => {
 
     const handleOpenModal = () => {
         setOpen(true);
+    };
+
+    useEffect(() => {
+        if (loading) {
+            handleOpenModal();
+        }
+    }, [loading]);
+
+    const handleReload = () => {
+        window.location.reload();
+    };
+
+    const handleUpdateUser = async (score: number) => {
+        const userId = userCookie?._id;
+        const newPerformance: IPerformance = {
+            subject,
+            score,
+            points: score
+        };
+
+        try {
+            const updatedUser = await updateUser(userId, newPerformance);
+            console.log('User updated successfully:', updatedUser);
+        } catch (error) {
+            console.error('Failed to update user:', error);
+        }
     };
 
     const handleAnswerChange = (questionId: number, optionKey: string) => {
@@ -51,9 +88,9 @@ const QuestionTemplate = ({ questions }: IQuestionProps) => {
             setCurrentQuestion(currentQuestion - 1);
         }
     };
-
-    const handleSubmit = () => {
-        calculateScore();
+    const handleSubmit = async () => {
+        const score = calculateScore();
+        await handleUpdateUser(score);
         handleOpenModal();
     };
 
@@ -78,7 +115,7 @@ const QuestionTemplate = ({ questions }: IQuestionProps) => {
             <div>
                 <div className='text-center border-2 bg-green-300 text-customPrimary rounded-lg text-lg'>
                     <div className='flex justify-between items-center py-4 px-5'>
-                        <h4>English</h4>
+                        <h4>{subject}</h4>
                         <h4 className='text-white bg-black p-2 rounded-md'>20:00 min</h4>
                     </div>
 
@@ -97,7 +134,7 @@ const QuestionTemplate = ({ questions }: IQuestionProps) => {
                         Previous
                     </Button>
 
-                    <Button onClick={handleSubmit} className="bg-blue-500 text-white px-4 py-2 rounded">
+                    <Button onClick={handleSubmit} className="bg-red-600 text-white px-4 py-2 rounded">
                         Submit
                     </Button>
 
@@ -113,15 +150,51 @@ const QuestionTemplate = ({ questions }: IQuestionProps) => {
                     </div>
                 ))}
             </div>
+            <div>
+                {
+                    loading ? (
+                        <RingSpinner />
+                    ) : (
+                        <ResponsiveDrawerDialog
+                            title="Quiz Result"
+                            description="Your quiz score"
+                            isOpen={open}
+                        // onClose={handleCloseModal}
+                        >
+                            <div>
 
-            <ResponsiveDrawerDialog
-                title="Quiz Result"
-                description="Your quiz score"
-                isOpen={open}
-                onClose={handleCloseModal}
-            >
-                <h4>Congratulations! Your score is {theScore} out of {questions.length}</h4>
-            </ResponsiveDrawerDialog>
+                                <div>
+
+                                    <h4 className="text-center py-4">Congratulations! Your score is {theScore} out of {questions.length}</h4>
+
+                                    <div className='flex justify-center'>
+
+                                        <div>
+                                            <Link href="/admin/reward" className="pr-2">
+                                                <Button className="bg-customSecondary text-white px-4 py-2 rounded">
+                                                    Reward
+                                                </Button>
+                                            </Link>
+
+                                            <Button onClick={handleReload} className="bg-customSecondary text-white px-4 py-2 rounded">
+                                                Try Again
+                                            </Button>
+
+                                        </div>
+                                    </div>
+
+
+                                </div>
+
+
+
+                            </div >
+
+                        </ResponsiveDrawerDialog >
+                    )
+                }
+            </div>
+
         </div>
     );
 };

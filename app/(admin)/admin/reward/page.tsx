@@ -1,8 +1,9 @@
 import React from 'react'
+import { RewardDetial } from './detial';
 
 function RewardPage() {
     return (
-        <div>Reward!</div>
+        <RewardDetial />
     )
 }
 

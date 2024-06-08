@@ -6,20 +6,11 @@ interface IHowItWorkProps {
     desc?: string
 }
 
-// export interface IQuestion {
-//     id: number;
-//     question: string;
-//     answer: string;
-//     category: string;
-//     examtype: string;
-//     examyear: string;
-//     hasPassage: number;
-//     image: string;
-//     option: string[];
-//     questionNub: string | null;
-//     section: string;
-//     solution: string;
-// }
+export interface IBuyAirtime {
+    amount: number;
+    phoneNumber: number;
+    serviceID: string;
+}
 
 export interface IQuestion {
     answer: string;
@@ -33,20 +24,27 @@ export interface IQuestion {
     solution: string;
 }
 
+export interface IQuestions {
+    data: IQuestion[];
+    status: number;
+    subject: string;
+    total: number;
+}
+
 interface Profile {
     points: number;
     membership: string;
     badges: string[];
+    rewardCount: number
 }
 
-interface Performance {
+export interface IPerformance {
     subject: string;
     score: number;
     points: number;
-    createdAt: Date;
 }
 
-interface Reward {
+export interface IReward {
     points: number;
     type: string;
     amount: string;
@@ -62,8 +60,27 @@ export interface IUser {
     phone?: string;
     profile: Profile;
     performance: Performance[];
-    reward: Reward[];
+    reward: IReward[];
 }
+
+export const NetworkProviders = [
+    {
+        value: "mtn",
+        img: "/mtn.png",
+    },
+    {
+        value: "airtel",
+        img: "/airtel.png",
+    },
+    {
+        value: "glo",
+        img: "/mtn.png",
+    },
+    {
+        value: "9mobile",
+        img: "/9mobile.jpeg",
+    },
+];
 
 
 
@@ -86,40 +103,6 @@ export const howitworkData: IHowItWorkProps[] = [
 ]
 
 // data.ts
-export const tableData = [
-    {
-        name: "Noah Williams",
-        email: "noah@example.com",
-        type: "Subscription",
-        status: "Fulfilled",
-        date: "2023-06-25",
-        amount: "$350.00",
-    },
-    {
-        name: "Emma Brown",
-        email: "emma@example.com",
-        type: "Sale",
-        status: "Fulfilled",
-        date: "2023-06-26",
-        amount: "$450.00",
-    },
-    {
-        name: "Liam Johnson",
-        email: "liam@example.com",
-        type: "Sale",
-        status: "Fulfilled",
-        date: "2023-06-23",
-        amount: "$250.00",
-    },
-    {
-        name: "Olivia Smith",
-        email: "olivia@example.com",
-        type: "Refund",
-        status: "Declined",
-        date: "2023-06-24",
-        amount: "$150.00",
-    },
-    // Add more data as needed
-];
+
 
 

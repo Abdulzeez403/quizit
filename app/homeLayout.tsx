@@ -11,10 +11,15 @@ import { HiOutlineMenuAlt2 } from "react-icons/hi";
 import { Button } from '@/components/ui/button';
 import { Sheet, SheetContent, SheetDescription, SheetHeader, SheetTitle, SheetTrigger } from '@/components/ui/sheet';
 
+interface IProps {
+    handleCloseModal: () => void;
+    handleOpenModal: () => void;
+    open: boolean
+}
 
-const HomeLayout = () => {
+const HomeLayout = ({ handleOpenModal, handleCloseModal, open }: IProps) => {
 
-    const { currentUser, user } = useAuthContext();
+    const { currentUser, user, signOut } = useAuthContext();
     const cookies = new Cookies();
     let userCookie = cookies.get("user");
 
@@ -28,15 +33,7 @@ const HomeLayout = () => {
         }
     }, [currentUser]);
 
-    const [open, setOpen] = useState(false);
 
-    const handleCloseModal = () => {
-        setOpen(false)
-    }
-
-    const handleOpenModal = () => {
-        setOpen(true)
-    }
 
 
     return (
@@ -58,9 +55,16 @@ const HomeLayout = () => {
                         {
                             userCookie?._id ? (
 
-                                <Button className='bg-foreground border-none hidden md:flex lg:flex bg-customSecondary text-white'>
-                                    <Link href="/admin">{user?.username}</Link>
-                                </Button>
+                                <div className='flex'>
+                                    <Button className='bg-foreground border-none hidden md:flex lg:flex bg-customSecondary text-white'>
+                                        <Link href="/admin">{user?.username}</Link>
+                                    </Button>
+
+                                    <Button className='bg-foreground border-none hidden md:flex lg:flex bg-customSecondary text-white' onClick={() => { signOut() }}>
+                                        LogOut
+                                    </Button>
+                                </div>
+
 
                             ) : (
                                 <div className="pl-4 flex space-x-4 ">

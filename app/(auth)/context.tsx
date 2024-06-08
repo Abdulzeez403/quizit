@@ -2,7 +2,7 @@
 import axios from 'axios';
 import React, { createContext, useContext, useEffect, useState } from 'react'
 import { UseSetCookie } from '../components/hooks/cookie';
-import { IUser } from '../data';
+import { IPerformance, IUser } from '../data';
 import { notify } from '../components/toast';
 import { jwtDecode } from "jwt-decode";
 import Cookies from 'universal-cookie';
@@ -22,6 +22,8 @@ interface IProp {
     signIn: (payload: any) => void;
     signUp: (values: any) => void;
     currentUser: (userId: any) => void;
+    updateUser: (userId: any, values: IPerformance) => void;
+
     signOut: () => void;
 }
 const AuthContext = createContext<IProp>({
@@ -33,6 +35,7 @@ const AuthContext = createContext<IProp>({
     },
     signUp: (values) => { },
     currentUser: (userId) => { },
+    updateUser: (userId, values) => { },
     signOut: () => { }
 });
 
@@ -107,7 +110,6 @@ export const AuthProvider: React.FC<IProps> = ({ children }) => {
                 }
             });
             setUser(response.data);
-            console.log(response.data)
             return response.data;
         } catch (error) {
             console.error('Error fetching current user:', error);
@@ -116,26 +118,42 @@ export const AuthProvider: React.FC<IProps> = ({ children }) => {
     };
 
 
-    const signOut = async () => {
+    const updateUser = async (userId: any, values: IPerformance) => {
         setLoading(true);
-        // try {
-        //     await AsyncStorage.removeItem('user');
-        //     setUser(null);
-        //     setUserToken(null)
-        //     setLoading(false);
-        //     return userToken;
 
-        // } catch (error) {
-        //     setLoading(false);
-        //     console.error('Error signing out:', error);
-        //     throw error;
-        // }
+        try {
+
+            const { token } = cookies.get("token");
+            const response = await axios.post(`${port}/performance/${userId}`, values, {
+                headers: {
+                    'x-auth-token': token
+                }
+            });
+            setUser(response.data);
+            console.log(response.data)
+            setLoading(false);
+            return response.data;
+        } catch (error) {
+            console.error('Error fetching current user:', error);
+            throw error;
+        }
+    };
+
+    const signOut = async () => {
+        cookies.remove('user');
+        cookies.remove('token');
+        window.location.reload();
+
+
+
+
+        // router.push('/login');
     };
 
 
     return (
         <AuthContext.Provider
-            value={{ loading, user, signIn, signUp, currentUser, signOut, userToken }}>
+            value={{ loading, user, signIn, signUp, currentUser, signOut, userToken, updateUser }}>
             {children}
 
         </AuthContext.Provider>

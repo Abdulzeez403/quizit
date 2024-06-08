@@ -1,44 +1,77 @@
 "use client"
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { IoIosSearch } from "react-icons/io";
 import CardComponent from '../../components/card';
 import { Table, TableBody } from '@/components/ui/table';
-import { tableData } from '@/app/data';
+import { IPerformance } from '@/app/data';
 import TableRowComponent from '@/app/components/tables/readTable';
 import { CiCoinInsert } from "react-icons/ci";
 import Barchart from '@/app/components/charts/bar';
+import Cookies from 'universal-cookie';
+import { useAuthContext } from '@/app/(auth)/context';
+import axios from 'axios';
 const DashboardView = () => {
+    const { currentUser, user } = useAuthContext();
+    const cookies = new Cookies();
+    let userCookie = cookies.get("user");
+    let userTooken = cookies.get("token");
+    const [performance, setPerformance] = useState<IPerformance[]>([]);
+
+    const fetchAttendedQuestion = async () => {
+        try {
+            const res = await axios.get(`https://jamb-past-question.onrender.com/api/performance/${userCookie?._id}`, {
+                headers: {
+                    'x-auth-token': userTooken
+                }
+            });
+            console.log(res.data);
+            setPerformance(res.data?.performance);
+        } catch (error) {
+            console.error("Error fetching data:", error);
+        }
+    };
+
+
+    useEffect(() => {
+
+        if (userCookie && userCookie._id) {
+            currentUser(userCookie._id);
+            fetchAttendedQuestion();
+            console.log(performance)
+
+        } else {
+            console.error("User cookie not found or malformed");
+        }
+    }, []);
+
+
+
     return (
         <div>
-            <div className='flex  justify-between border-b-2 shadow-md py-2 px-2'>
 
-                icon={<IoIosSearch />}
-                <button>LogOut</button>
-
-            </div>
 
             <div className="grid gap-4 md:grid-cols-2 md:gap-8 lg:grid-cols-4 pt-5">
                 <CardComponent
                     title="Total Coin"
-                    amount="$45,231.89"
+                    amount={user?.profile?.points}
                     change="+20.1% from last month"
                     icon={<CiCoinInsert color="yellow" size={30} />}
                 />
                 <CardComponent
                     title="Total Transcations"
-                    amount="1,230"
+                    amount={0.00}
                     change="+5.2% from last month"
                 />
 
                 <CardComponent
                     title="Converted Coin"
-                    amount="1,230"
+                    amount={0.00}
                     change="+5.2% from last month"
                 />
 
                 <CardComponent
                     title="Pending Cion"
-                    amount="1,230"
+                    amount={user?.profile?.points}
                     change="+5.2% from last month"
                 />
                 {/* Other components */}
@@ -52,22 +85,25 @@ const DashboardView = () => {
 
             <div className='border-2 rounded-lg my-4'>
                 <div className='py-6 px-4 w-80'>
-                    <h3 className="text-lg font-semibold">Transaction</h3>
-                    <p className='text-sm'>Lorem ipsum dolor sit amet consectetur adipisicing elit. Nostrum eius saepe aut</p>
+                    <h3 className="text-lg font-semibold">Attented Quizs</h3>
+                    <p className='text-sm'>Lorem ipsum dolor sit amet consectetur adipisicing</p>
                 </div>
                 <Table className='border-2'>
-                    <TableBody >
-                        {tableData.map((row, index) => (
-                            <TableRowComponent
-                                key={index}
-                                name={row.name}
-                                email={row.email}
-                                type={row.type}
-                                status={row.status}
-                                date={row.date}
-                                amount={row.amount}
-                            />
-                        ))}
+                    <TableBody>
+                        {Array.isArray(performance) ? (
+                            performance.slice(0, 10).map((row, index) => (
+                                <TableRowComponent
+                                    key={index}
+                                    subject={row.subject}
+                                    score={row.score}
+                                    option={row.points}
+                                />
+                            ))
+                        ) : (
+                            <tr>
+                                <td colSpan={3}>No performance data available</td>
+                            </tr>
+                        )}
                     </TableBody>
                 </Table>
             </div>

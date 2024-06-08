@@ -7,6 +7,7 @@ import { ResponsiveDrawerDialog } from '../components/modal/responsivedrawer';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import LoadingSpinner from '../components/loader';
 import { Button } from '@/components/ui/button';
+import Cookies from 'universal-cookie';
 
 
 
@@ -14,8 +15,12 @@ import { Button } from '@/components/ui/button';
 
 export const QuizDetial = () => {
 
-    const subjects = ['Math', 'English', 'Physics', 'Chemistry'];
-    const years = [2022, 2021, 2020, 2019, 2018];
+
+
+
+
+    const subjects = ['Mathematics', 'English', 'Physics', 'Chemistry', 'Commerce', 'Biology', 'Accounting', 'English Literature'];
+    const years = [2022, 2021, 2020, 2019, 2018, 2017, 2016, 2015, 2014, 2013, 2012, 2011, 2010, 2009, 2008, 2007, 2006, 2005, 2004, 2003, 2002, 2001];
     const [selectedSubject, setSelectedSubject] = useState("English");
     const [selectedYear, setSelectedYear] = useState("2019");
 
@@ -111,7 +116,7 @@ export const QuizDetial = () => {
                         <LoadingSpinner />
                     </div>
                 ) : (
-                    <QuestionTemplate questions={questions} />
+                    <QuestionTemplate questions={questions} subject={selectedSubject} />
                 )}
 
 
