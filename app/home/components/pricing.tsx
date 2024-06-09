@@ -61,6 +61,7 @@ const PricingPlans = ({ handleOpenModal }: IProps) => {
 
     const plans = [
         {
+            id: 1,
             title: 'Basic',
             price: 'Free',
             features: [
@@ -73,6 +74,7 @@ const PricingPlans = ({ handleOpenModal }: IProps) => {
             bgColor: 'bg-blue-500',
         },
         {
+            id: 2,
             title: 'Standard',
             price: '1.000/mo',
             features: [
@@ -85,6 +87,7 @@ const PricingPlans = ({ handleOpenModal }: IProps) => {
             bgColor: 'bg-green-500',
         },
         {
+            id: 3,
             title: 'Premium',
             price: '3,000/mo',
             features: [
