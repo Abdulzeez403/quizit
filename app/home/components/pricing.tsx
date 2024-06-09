@@ -140,10 +140,11 @@ const PricingPlans = ({ handleOpenModal }: IProps) => {
             </div>
             <div className="block justify-center  md:flex md:gap-x-20  lg:flex lg:gap-x-20 ">
                 {plans.map((plan, index) => (
-                    <div className='py-2'>
+                    <div className='py-2'
+                        key={plan?.id}
+                    >
 
                         <PricingCard
-                            key={index}
                             title={plan.title}
                             price={plan.price}
                             features={plan.features}
