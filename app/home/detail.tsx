@@ -15,7 +15,7 @@ const HomePage = ({ handleOpenModal }: IProps) => {
             <Herosecton handleOpenModal={handleOpenModal} />
             <Howitwork />
             <SubjectSection />
-            <PricingPlans />
+            <PricingPlans handleOpenModal={handleOpenModal} />
             <Footer />
         </div>
     )

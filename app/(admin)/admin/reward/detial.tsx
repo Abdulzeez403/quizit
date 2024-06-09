@@ -14,13 +14,18 @@ import axios from 'axios';
 import { IReward } from '@/app/data';
 import RewardTable from './rewardTable';
 import { useBuyAirtimeContext } from './context';
+import { useRouter } from 'next/navigation';
 
 
 export const RewardDetial = () => {
-    const { currentUser, user } = useAuthContext();
+    const router = useRouter()
+
+    const { currentUser, user, createPayment, paymentlink } = useAuthContext();
     const { reward, getReward } = useBuyAirtimeContext()
     const cookies = new Cookies();
     let userCookie = cookies.get("user");
+    let theLink = paymentlink
+
 
     useEffect(() => {
 
@@ -32,6 +37,26 @@ export const RewardDetial = () => {
             console.error("User cookie not found or malformed");
         }
     }, []);
+
+    const handlepayment = async () => {
+        try {
+            const userId = userCookie._id;
+            const payload = {
+                customerName: user.name,
+                customerEmail: user.email
+            };
+            console.log(payload);
+
+            await createPayment(userId, payload);
+            // await getPayment(userId);
+            console.log(paymentlink);
+
+
+            router.push(theLink);
+        } catch (error) {
+            console.error("Error processing payment:", error);
+        }
+    };
 
 
 
@@ -46,8 +71,7 @@ export const RewardDetial = () => {
     }
 
     const isButtonDisabled = user?.profile?.rewardCount === 1 &&
-        user?.profile?.membership === "free" &&
-        user?.profile?.points < 100;
+        user?.profile?.membership === "free";
 
 
 
@@ -72,13 +96,36 @@ export const RewardDetial = () => {
                     change="+5.2% from last month"
                 />
 
-                <Button
+                <div>
+                    {!isButtonDisabled ? (
+
+                        <Button
+                            onClick={handleOpenModal}
+                            className="w-full mt-4 bg-black text-white hover:bg-slate-300"
+                        >
+                            Swap Coin
+                        </Button>
+                    ) : (
+
+                        <Button
+                            onClick={handlepayment}
+                            className="w-full mt-4 bg-black text-white hover:bg-slate-300"
+                        >
+                            Subscript
+                        </Button>
+
+                    )
+
+                    }
+                </div>
+                {/* <Button
                     onClick={handleOpenModal}
                     className={`w-full mt-4 ${!isButtonDisabled ? "bg-black text-white" : "disabled:bg-slate-300"}`}
                     disabled={isButtonDisabled}
                 >
                     Swap Coin
-                </Button>
+                </Button> */}
+
 
             </div>
             <div className='border-2 rounded-lg my-4'>

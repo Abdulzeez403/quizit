@@ -20,10 +20,14 @@ interface IProp {
     loading: boolean;
     userToken: any;
     user: IUser,
+    paymentlink: string,
     signIn: (payload: any) => void;
     signUp: (values: any) => void;
     currentUser: (userId: any) => void;
     updateUser: (userId: any, values: IPerformance) => void;
+    createPayment: (userId: any, values: any) => void;
+    getPayment: (userId: any) => void;
+
 
     signOut: () => void;
 }
@@ -31,13 +35,16 @@ const AuthContext = createContext<IProp>({
     loading: false,
     userToken: null,
     user: null || {},
+    paymentlink: "",
     signIn: (payload) => {
         return null
     },
     signUp: (values) => { },
     currentUser: (userId) => { },
     updateUser: (userId, values) => { },
-    signOut: () => { }
+    signOut: () => { },
+    createPayment: (userId, values) => { },
+    getPayment: (userId) => { }
 });
 
 export const useAuthContext = () => {
@@ -57,6 +64,7 @@ export const AuthProvider: React.FC<IProps> = ({ children }) => {
     const [loading, setLoading] = useState<boolean>(false);
     const [user, setUser] = useState({} as any);
     const [userToken, setUserToken] = useState<any>(null)
+    const [paymentlink, setPaymentlink] = useState<string>("")
     const cookies = new Cookies()
     const router = useRouter();
 
@@ -141,16 +149,57 @@ export const AuthProvider: React.FC<IProps> = ({ children }) => {
         }
     };
 
+    const createPayment = async (userId: any, values: any) => {
+        try {
+
+            const { token } = cookies.get("token");
+            const response = await axios.post(`${port}/payment/initialize-transaction/${userId}`, values, {
+                headers: {
+                    'x-auth-token': token
+                }
+            });
+            console.log(response.data)
+            setPaymentlink(response.data)
+            setLoading(false);
+            return response.data;
+        } catch (error) {
+            console.error('Error payment:', error);
+            throw error;
+        }
+
+    }
+
+    const getPayment = async (userId: any) => {
+        try {
+
+            const { token } = cookies.get("token");
+            const response = await axios.get(`${port}/payment/payment-response/${userId}`, {
+                headers: {
+                    'x-auth-token': token
+                }
+            });
+            console.log(response.data)
+            setPaymentlink(response.data)
+            setLoading(false);
+            return response.data;
+        } catch (error) {
+            console.error('Error payment:', error);
+            throw error;
+        }
+    }
+
     const signOut = async () => {
         cookies.remove('user');
         cookies.remove('token');
         router.push('/')
+        window.location.reload();
+
     };
 
 
     return (
         <AuthContext.Provider
-            value={{ loading, user, signIn, signUp, currentUser, signOut, userToken, updateUser }}>
+            value={{ loading, user, signIn, signUp, currentUser, signOut, userToken, updateUser, createPayment, getPayment, paymentlink }}>
             {children}
 
         </AuthContext.Provider>

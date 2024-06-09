@@ -46,7 +46,7 @@ const QuestionTemplate = ({ questions, subject }: IQuestionProps) => {
         const userId = userCookie?._id;
         const newPerformance: IPerformance = {
             subject,
-            score: 2000,
+            score: 500,
             points: score
         };
 

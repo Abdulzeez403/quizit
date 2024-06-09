@@ -1,6 +1,11 @@
+import { useAuthContext } from '@/app/(auth)/context';
 import { HeaderText, Text } from '@/app/components/typograpy';
-import React from 'react';
+import { Route } from 'lucide-react';
+import React, { useEffect } from 'react';
 import { FaCheck } from "react-icons/fa6";
+import Cookies from 'universal-cookie';
+import { useRouter } from 'next/navigation';
+import { Button } from '@/components/ui/button';
 
 interface PricingCardProps {
     title: string;
@@ -9,7 +14,51 @@ interface PricingCardProps {
     bgColor: string;
 }
 
-const PricingPlans = () => {
+interface IProps {
+    handleOpenModal: () => void;
+}
+
+const PricingPlans = ({ handleOpenModal }: IProps) => {
+
+
+    const router = useRouter()
+
+    const { currentUser, user, createPayment, getPayment, paymentlink } = useAuthContext();
+    const cookies = new Cookies();
+    let userCookie = cookies.get("user");
+    let theLink = paymentlink
+
+    useEffect(() => {
+
+        if (userCookie && userCookie._id) {
+            currentUser(userCookie._id);
+
+        } else {
+            console.error("User cookie not found or malformed");
+        }
+    }, []);
+
+    const handlepayment = async () => {
+        try {
+            const userId = userCookie._id;
+            const payload = {
+                customerName: user.name,
+                customerEmail: user.email
+            };
+            console.log(payload);
+
+            await createPayment(userId, payload);
+            // await getPayment(userId);
+            console.log(paymentlink);
+
+
+            router.push(theLink);
+        } catch (error) {
+            console.error("Error processing payment:", error);
+        }
+    };
+
+
     const plans = [
         {
             title: 'Basic',
@@ -66,7 +115,14 @@ const PricingPlans = () => {
 
                     ))}
                 </div>
-                <button className="bg-white text-black font-bold py-2 px-4 rounded">Select Plan</button>
+                {userCookie?._id ? (
+                    <Button className="bg-white text-black font-bold py-2 px-4 rounded " onClick={() => handlepayment()}>Select Plan</Button>
+                ) : (
+                    <Button className="bg-white text-black font-bold py-2 px-4 rounded " onClick={() => handleOpenModal()}>Select Plan</Button>
+                )
+
+                }
+
             </div>
         );
     };
