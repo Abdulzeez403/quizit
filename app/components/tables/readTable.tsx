@@ -1,26 +1,27 @@
 // TableRowComponent.tsx
-import { TableCell, TableHeader, TableRow } from '@/components/ui/table';
+import { TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import React from 'react';
 
 interface TableRowProps {
     subject: string
     score: number
-    option: number
+    points: number
+    // date: any
 
 }
 
-const TableRowComponent: React.FC<TableRowProps> = ({ subject, score, option }) => {
+const TableRowComponent: React.FC<TableRowProps> = ({ subject, score, points }) => {
     return (
-        <div>
 
-            <TableRow>
-                <TableCell>
-                    <div className="font-medium">{subject}</div>
-                </TableCell>
-                <TableCell className=" ">{score}</TableCell>
-                <TableCell className="">{option}</TableCell>
-            </TableRow>
-        </div>
+
+        <TableRow>
+            <TableCell>
+                <div className="font-medium">{subject}</div>
+            </TableCell>
+            <TableCell className=" ">{score} </TableCell>
+            <TableCell className="">{points}</TableCell>
+            {/* <TableCell className="">{points}</TableCell> */}
+        </TableRow>
 
     );
 };

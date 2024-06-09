@@ -15,10 +15,9 @@ const RewardTable: React.FC<TableRowProps> = ({ points, amount, type }) => {
             <TableCell>
                 <div className="font-medium">{type}</div>
             </TableCell>
-            <TableCell className="hidden sm:table-cell">{points}</TableCell>
-            <TableCell className="hidden sm:table-cell">
-            </TableCell>
-            <TableCell className="hidden md:table-cell">{amount}</TableCell>
+            <TableCell className="">{points}</TableCell>
+
+            <TableCell className="">{amount}</TableCell>
         </TableRow>
     );
 };

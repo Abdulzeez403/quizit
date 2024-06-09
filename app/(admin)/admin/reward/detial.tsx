@@ -1,6 +1,6 @@
 "use client"
 import TableRowComponent from '@/app/components/tables/readTable'
-import { Table, TableBody } from '@/components/ui/table'
+import { Table, TableBody, TableHead, TableHeader, TableRow } from '@/components/ui/table'
 import React, { useEffect, useState } from 'react'
 import CardComponent from '../../../components/card';
 import { CiCoinInsert } from 'react-icons/ci';
@@ -13,35 +13,20 @@ import Cookies from 'universal-cookie';
 import axios from 'axios';
 import { IReward } from '@/app/data';
 import RewardTable from './rewardTable';
+import { useBuyAirtimeContext } from './context';
 
 
 export const RewardDetial = () => {
     const { currentUser, user } = useAuthContext();
+    const { reward, getReward } = useBuyAirtimeContext()
     const cookies = new Cookies();
     let userCookie = cookies.get("user");
-    let userTooken = cookies.get("token");
-    const [reward, setReward] = useState<IReward[]>([]);
-
-    const fetchReward = async () => {
-        try {
-            const res = await axios.get(`https://jamb-past-question.onrender.com/api/reward/${userCookie?._id}`, {
-                headers: {
-                    'x-auth-token': userTooken
-                }
-            });
-            console.log(res.data);
-            setReward(res.data);
-        } catch (error) {
-            console.error("Error fetching data:", error);
-        }
-    };
-
 
     useEffect(() => {
 
         if (userCookie && userCookie._id) {
             currentUser(userCookie._id);
-            fetchReward();
+            getReward(userCookie?._id)
 
         } else {
             console.error("User cookie not found or malformed");
@@ -60,13 +45,15 @@ export const RewardDetial = () => {
         setOpen(true)
     }
 
-    const isButtonDisabled = user?.profile?.points < 100 && user?.profile?.rewardCount >= 1 && user?.profile?.membership === "free";
+    const isButtonDisabled = user?.profile?.rewardCount === 1 &&
+        user?.profile?.membership === "free" &&
+        user?.profile?.points < 100;
 
 
 
     return (
         <div>
-            <div className="grid gap-4 md:grid-cols-2 md:gap-8 lg:grid-cols-4 pt-5">
+            <div className="grid gap-4 md:grid-cols-2 md:gap-8 lg:grid-cols-4 pt-2">
                 <CardComponent
                     title="Total Reward"
                     amount={user?.profile?.points}
@@ -99,16 +86,32 @@ export const RewardDetial = () => {
                     <h3 className="text-lg font-semibold">Transaction</h3>
                     <p className='text-sm'>Lorem ipsum dolor sit amet consectetur adipisicing elit. Nostrum eius saepe aut</p>
                 </div>
+
+
                 <Table className='border-2'>
-                    <TableBody >
-                        {Array.isArray(reward) && reward.slice(0, 10)?.map((row, index) => (
-                            <RewardTable
-                                key={index}
-                                type={row.type}
-                                amount={row.amount}
-                                points={row.points}
-                            />
-                        ))}
+                    <TableHeader>
+                        <TableRow>
+                            <TableHead className="">Type</TableHead>
+                            <TableHead>Amount</TableHead>
+                            <TableHead>Points</TableHead>
+                        </TableRow>
+                    </TableHeader>
+                    <TableBody>
+
+                        {Array.isArray(reward) ? (
+                            reward.slice(0, 10).map((row, index) => (
+                                <RewardTable
+                                    key={index}
+                                    type={row.type}
+                                    amount={row.amount}
+                                    points={row.points}
+                                />
+                            ))
+                        ) : (
+                            <tr>
+                                <td colSpan={3}>No performance data available</td>
+                            </tr>
+                        )}
                     </TableBody>
                 </Table>
             </div>

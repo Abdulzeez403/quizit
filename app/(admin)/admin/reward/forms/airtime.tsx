@@ -41,26 +41,36 @@ export const AirtimeForm: React.FC = () => {
     const [selectedAirtime, setSelectedAirtime] = useState<string>('');
     const [selectedAmount, setSelectedAmount] = useState<string>('');
 
+    const { getReward } = useBuyAirtimeContext()
+
+
 
 
     const handleSubmit = async (values: AirtimeFormValues) => {
         const payload = { ...values, serviceID: selectedAirtime, amount: selectedAmount };
 
         if (user?.profile?.points < Number(selectedAmount)) {
-            notify.error("Oooop!! You dont have sufficient Coin to perform is transaction")
+            notify.error("Oooop!! You don't have sufficient Coin to perform this transaction");
         } else {
-            await buyAirtime(payload as any)
-            console.log(payload)
-            createReward(userCookie?._id, {
-                points: Number(selectedAmount),
-                type: `${selectedAirtime} Airtime`,
-                amount: Number(selectedAmount)
-            })
+            try {
+                await buyAirtime(payload as any);
+                console.log(payload);
+
+                // Only call createReward if buyAirtime was successful
+                await createReward(userCookie?._id, {
+                    points: Number(selectedAmount),
+                    type: `${selectedAirtime} Airtime`,
+                    amount: Number(selectedAmount)
+                });
+                notify.success("Airtime purchased successfully!");
+                getReward(userCookie._id)
+            } catch (error) {
+                console.error("Error buying airtime:", error);
+                notify.error("An error occurred while buying airtime.");
+            }
         }
-
-
-
     };
+
 
     const initialValues: AirtimeFormValues = { phoneNumber: '' };
 

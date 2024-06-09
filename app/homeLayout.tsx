@@ -105,6 +105,11 @@ const HomeLayout = ({ handleOpenModal, handleCloseModal, open }: IProps) => {
 
                                             <Link href="/" className='text-[20px]'>FAQ</Link>
                                         </div>
+                                        <div>
+
+                                            <Link href="/admin" className='text-[20px]'>Dashboard</Link>
+                                        </div>
+
 
 
 

@@ -91,10 +91,9 @@ const DashboardView = () => {
                 <Table className='border-2'>
                     <TableHeader>
                         <TableRow>
-                            <TableHead className="w-[100px]">Subject</TableHead>
+                            <TableHead className="">Subjects</TableHead>
                             <TableHead>Scores</TableHead>
-                            <TableHead>Option</TableHead>
-                            {/* <TableHead className="text-right">Amount</TableHead> */}
+                            <TableHead>Points</TableHead>
                         </TableRow>
                     </TableHeader>
                     <TableBody>
@@ -105,7 +104,7 @@ const DashboardView = () => {
                                     key={index}
                                     subject={row.subject}
                                     score={row.score}
-                                    option={row.points}
+                                    points={row.points}
                                 />
                             ))
                         ) : (

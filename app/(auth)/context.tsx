@@ -6,6 +6,7 @@ import { IPerformance, IUser } from '../data';
 import { notify } from '../components/toast';
 import { jwtDecode } from "jwt-decode";
 import Cookies from 'universal-cookie';
+import { useRouter } from 'next/navigation';
 
 
 
@@ -57,6 +58,7 @@ export const AuthProvider: React.FC<IProps> = ({ children }) => {
     const [user, setUser] = useState({} as any);
     const [userToken, setUserToken] = useState<any>(null)
     const cookies = new Cookies()
+    const router = useRouter();
 
 
 
@@ -142,7 +144,7 @@ export const AuthProvider: React.FC<IProps> = ({ children }) => {
     const signOut = async () => {
         cookies.remove('user');
         cookies.remove('token');
-        // window.location.reload();
+        router.push('/')
     };
 
 
