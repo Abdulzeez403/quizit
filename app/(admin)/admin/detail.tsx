@@ -71,7 +71,7 @@ const DashboardView = () => {
 
                 <CardComponent
                     title="Pending Cion"
-                    amount={user?.profile?.points}
+                    amount={Number(user?.profile?.points)}
                     change="+5.2% from last month"
                 />
                 {/* Other components */}
