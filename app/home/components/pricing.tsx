@@ -45,14 +45,7 @@ const PricingPlans = ({ handleOpenModal }: IProps) => {
                 customerName: user.name,
                 customerEmail: user.email
             };
-            console.log(payload);
-
             await createPayment(userId, payload);
-            // await getPayment(userId);
-            console.log(paymentlink);
-
-
-            router.push(theLink);
         } catch (error) {
             console.error("Error processing payment:", error);
         }

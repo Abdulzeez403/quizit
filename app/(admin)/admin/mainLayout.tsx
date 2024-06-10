@@ -1,6 +1,6 @@
 "use client"
 import { Sidebar, Menu, MenuItem, SubMenu } from 'react-pro-sidebar';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Image from "next/image"
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
@@ -14,6 +14,7 @@ import { Button } from '@/components/ui/button';
 import { SheetTrigger, SheetContent, Sheet } from '@/components/ui/sheet';
 import { useAuthContext } from '@/app/(auth)/context';
 import { LuHome } from "react-icons/lu";
+import Cookies from 'universal-cookie';
 
 
 interface IProps {
@@ -34,7 +35,18 @@ interface SubMenuIProps {
 
 export const SidebarComponent = ({ children }: IProps) => {
 
-    const { signOut } = useAuthContext()
+    const { currentUser, user, signOut } = useAuthContext();
+    const cookies = new Cookies();
+    let userCookie = cookies.get("user");
+
+    useEffect(() => {
+        if (userCookie && userCookie._id) {
+            currentUser(userCookie._id);
+
+        } else {
+            console.error("User cookie not found or malformed");
+        }
+    }, []);
 
     const [collapsed, setCollapsed] = useState(false);
     const urlPath = usePathname();
@@ -46,7 +58,7 @@ export const SidebarComponent = ({ children }: IProps) => {
         return (
             <Link href={link} legacyBehavior >
                 <MenuItem icon={icon}
-                    className={`py-[-1rem] ${isActive ? ' bg-white text-blue-400' : 'text-white'}`} >
+                    className={`py-[-1rem] hover:text-customPrimary ${isActive ? ' bg-white text-customPrimary' : 'text-white'}`} >
                     <span className='text-semibold '>{title}</span>
                     {suffix && <span style={{ marginLeft: 'auto', color: "red", backgroundColor: "red" }}>{suffix}</span>}
                 </MenuItem>
@@ -74,8 +86,6 @@ export const SidebarComponent = ({ children }: IProps) => {
 
 
 
-
-
     return (
         <div>
             <div style={{ display: 'flex', height: '100vh', overflow: "hidden" }}>
@@ -83,18 +93,19 @@ export const SidebarComponent = ({ children }: IProps) => {
                 <div className='hidden md:flex lg:flex'>
                     <Sidebar
                         collapsed={collapsed}
-                        backgroundColor="black"
+                        backgroundColor="#003333"
                         transitionDuration={1000}
                         rootStyles={{
                             background:
                                 'linear-gradient(180deg, rgba(166,240,255,1) 0%, rgba(220,250,255,1) 49%, rgba(230,252,255,1) 100%)',
                         }}
                     >
-                        <div className='flex justify-between align-center p-2 pb-3 bg-slate-800'>
+                        <div className='flex justify-between align-center p-2 pb-3 bg-customSecondary'>
                             <div className="block justify-center py-5 ">
                                 <div className="relative flex justify-center items-center">
                                     <Image src={User} alt="Logo" width={70} height={70} className="rounded-full py-4" />
-                                    <span className="absolute top-[4.2rem] right-12 bg-red-500 text-white rounded-full px-2 py-1 text-xs font-bold">free</span>
+                                    <span className={`absolute top-[4.2rem] right-12  text-white rounded-full px-2 py-1 text-xs font-bold 
+                                    ${user?.profile?.membership === "free" ? "bg-red-500" : "bg-green-500"}`}>{user?.profile?.membership}</span>
                                 </div>
 
 
@@ -218,7 +229,7 @@ export const SidebarComponent = ({ children }: IProps) => {
                             </Sheet>
                         </div>
 
-                        <Button onClick={() => signOut()} className="hover:bg-slate-300 bg-black">LogOut</Button>
+                        <Button onClick={() => signOut()} className="hover:bg-slate-300  bg-customPrimary text-customSecondary">LogOut</Button>
                     </div>
 
                     <div className="p-5">
@@ -226,10 +237,10 @@ export const SidebarComponent = ({ children }: IProps) => {
                     </div>
                 </div>
 
-            </div>
+            </div >
 
             <div></div>
 
-        </div>
+        </div >
     );
 }

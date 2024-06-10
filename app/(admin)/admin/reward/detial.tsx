@@ -101,7 +101,7 @@ export const RewardDetial = () => {
 
                         <Button
                             onClick={handleOpenModal}
-                            className="w-full mt-4 bg-black text-white hover:bg-slate-300"
+                            className="w-full mt-4 bg-customPrimary text-customSecondary hover:bg-slate-300"
                         >
                             Swap Coin
                         </Button>
@@ -109,7 +109,7 @@ export const RewardDetial = () => {
 
                         <Button
                             onClick={handlepayment}
-                            className="w-full mt-4 bg-black text-white hover:bg-slate-300"
+                            className="w-full mt-4 bg-customPrimary text-customSecondary hover:bg-slate-300"
                         >
                             Subscript
                         </Button>

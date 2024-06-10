@@ -160,6 +160,7 @@ export const AuthProvider: React.FC<IProps> = ({ children }) => {
             });
             console.log(response.data)
             setPaymentlink(response.data)
+            router.push(response.data)
             setLoading(false);
             return response.data;
         } catch (error) {
@@ -178,8 +179,8 @@ export const AuthProvider: React.FC<IProps> = ({ children }) => {
                     'x-auth-token': token
                 }
             });
-            console.log(response.data)
             setPaymentlink(response.data)
+            router.push(paymentlink)
             setLoading(false);
             return response.data;
         } catch (error) {
