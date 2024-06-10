@@ -80,7 +80,7 @@ export const RewardDetial = () => {
             <div className="grid gap-4 md:grid-cols-2 md:gap-8 lg:grid-cols-4 pt-2">
                 <CardComponent
                     title="Total Reward"
-                    amount={user?.profile?.points}
+                    amount={Number(user?.profile?.points)}
                     change="+20.1% from last month"
                     icon={<CiCoinInsert color="yellow" size={30} />}
                 />

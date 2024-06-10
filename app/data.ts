@@ -52,15 +52,15 @@ export interface IReward {
 }
 
 export interface IUser {
-    name: string;
-    gender: string;
-    username: string;
-    email: string;
-    password: string;
+    name?: string;
+    gender?: string;
+    username?: string;
+    email?: string;
+    password?: string;
     phone?: string;
-    profile: Profile;
-    performance: Performance[];
-    reward: IReward[];
+    profile?: Profile;
+    performance?: Performance[];
+    reward?: IReward[];
 }
 
 export const NetworkProviders = [
