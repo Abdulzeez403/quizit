@@ -4,7 +4,7 @@ import React from 'react';
 
 interface RevenueCardProps {
     title: string;
-    amount: number;
+    amount: any;
     change: string;
     icon?: any
 }
