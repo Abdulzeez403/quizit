@@ -49,7 +49,9 @@ export const AirtimeForm: React.FC = () => {
     const handleSubmit = async (values: AirtimeFormValues) => {
         const payload = { ...values, serviceID: selectedAirtime, amount: selectedAmount };
 
-        if (user?.profile?.points < Number(selectedAmount)) {
+        const userPoints = user?.profile?.points ?? 0;
+
+        if (userPoints < Number(selectedAmount)) {
             notify.error("Oooop!! You don't have sufficient Coin to perform this transaction");
         } else {
             try {
