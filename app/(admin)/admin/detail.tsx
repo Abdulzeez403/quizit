@@ -77,7 +77,7 @@ const DashboardView = () => {
                 {/* Other components */}
 
             </div>
-            <div className='w-full md:w-0 lg:w-0'>
+            <div className=''>
                 <Barchart />
             </div>
 
