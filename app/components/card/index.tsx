@@ -19,7 +19,7 @@ const CardComponent: React.FC<RevenueCardProps> = ({ title, amount, change, icon
                 {icon}
             </CardHeader>
             <CardContent>
-                <div className="text-2xl font-bold">{amount}</div>
+                <div className="text-2xl font-bold text-customPrimary">{amount}</div>
                 <p className="text-xs text-muted-foreground">
                     {change}
                 </p>

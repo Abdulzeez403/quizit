@@ -180,13 +180,17 @@ export const SidebarComponent = ({ children }: IProps) => {
                                 </SheetTrigger>
                                 <SheetContent side="right"
 
-                                    className="sm:max-w-xs bg-black">
+                                    className="sm:max-w-xs bg-customPrimary">
 
 
-                                    <div className='flex justify-between align-center p-2 pb-3 bg-slate-800'>
-                                        <div className="block justify-center py-5 ">
-                                            <div className="relative flex justify-center items-center">
+                                    <div className='flex justify-between align-center  pb-3 bg-customSecondary'>
+                                        <div className="block justify-center  ">
+
+
+                                            <div className="relative flex justify-center items-center p-4">
                                                 <Image src={User} alt="Logo" width={70} height={70} className="rounded-full py-4" />
+
+
                                                 <span className="absolute top-[4.2rem] right-12 bg-red-500 text-white rounded-full px-2 py-1 text-xs font-bold">free</span>
                                             </div>
                                             <h4 className='text-white text-sm py-2'>abdulazeezsodiq403@gmail.com</h4>

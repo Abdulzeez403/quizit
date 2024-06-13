@@ -58,7 +58,7 @@ const Barchart = () => {
                     <Tooltip />
                     {/* <Legend /> */}
                     {/* <Bar dataKey="uv" fill="#8884d8" /> */}
-                    <Bar dataKey="pv" fill="black" />
+                    <Bar dataKey="pv" fill="#003333" />
                 </BarChart>
             </ResponsiveContainer>
         </div>
