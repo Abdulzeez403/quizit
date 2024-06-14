@@ -37,9 +37,9 @@ export const Herosecton = ({ handleOpenModal }: IProps) => {
 
                             {
                                 userCookie?._id ? (<Link href="/quiz">
-                                    <Button className='bg-customSecondary text-customPrimary hover:bg-slate-300'>Get Started</Button>
+                                    <Button className='bg-white text-customPrimary hover:bg-slate-300'>Start Quiz</Button>
                                 </Link>) : (
-                                    <Button className='bg-customSecondary text-customPrimary hover:bg-slate-300' onClick={handleOpenModal}>Get Started</Button>
+                                    <Button className='bg-white text-customPrimary hover:bg-slate-300' onClick={handleOpenModal}>Start Quiz</Button>
                                 )
                             }
 
