@@ -5,6 +5,7 @@ import * as Yup from 'yup';
 import { Button } from '@/components/ui/button';
 import { FormField } from '../components/textInput/textInput';
 import { useAuthContext } from './context';
+import CustomButton from '../components/button';
 
 
 interface SignInFormValues {
@@ -52,10 +53,13 @@ export const SignInForm: React.FC = () => {
                     <FormField label="Email" name="email" className="my-4" />
                     <FormField label="Password" name="password" type="password" />
 
+
                     <div>
-                        <Button type="submit" className="w-full mt-4 my-3 bg-black hover:bg-slate-300" disabled={isSubmitting}>
-                            Submit
-                        </Button>
+
+                        <CustomButton type="submit" loading={isSubmitting}>
+                            SignIn
+                        </CustomButton>
+
                     </div>
                 </Form>
             )}

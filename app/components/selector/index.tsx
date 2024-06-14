@@ -17,7 +17,7 @@ const GenderSelect: React.FC<GenderSelectProps> = ({ label, name }) => {
                 onValueChange={(value) => helpers.setValue(value)}
 
             >
-                <SelectTrigger className="w-96">
+                <SelectTrigger className="">
                     <SelectValue placeholder="Select Gender" />
                 </SelectTrigger>
                 <SelectContent>

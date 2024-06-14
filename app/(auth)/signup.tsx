@@ -6,6 +6,7 @@ import { Button } from '@/components/ui/button';
 import { FormField } from '../components/textInput/textInput';
 import { useAuthContext } from './context';
 import GenderSelect from '../components/selector';
+import CustomButton from '../components/button';
 
 
 interface SignUpFormValues {
@@ -47,33 +48,32 @@ export const SignUpForm: React.FC = () => {
     };
 
     return (
-        <div className="">
 
-            <Formik
-                initialValues={initialValues}
-                validationSchema={SignUpFormValues}
-                onSubmit={handleSubmit}
-            >
-                {({ isSubmitting }) => (
-                    <Form>
-                        <FormField label="Name" name="name" className="my-4" />
-                        <FormField label="Email" name="email" className="my-4" />
-                        <FormField label="Username" name="username" className="my-4" />
+        <Formik
+            initialValues={initialValues}
+            validationSchema={SignUpFormValues}
+            onSubmit={handleSubmit}
+        >
+            {({ isSubmitting }) => (
+                <Form>
+                    <FormField label="Name" name="name" className="my-4" />
+                    <FormField label="Email" name="email" className="my-4" />
+                    <FormField label="Username" name="username" className="my-4" />
+                    <div className='w-full'>
                         <GenderSelect label="Gender" name="gender" />
-                        <FormField label="Password" name="password" type="password" className="my-4" />
-                        <div>
 
-                            <Button type="submit" className="mt-4 bg-black" disabled={isSubmitting}>
-                                Submit
-                            </Button>
+                    </div>
+                    <FormField label="Password" name="password" type="password" className="my-4" />
+                    <div>
+                        <CustomButton type="submit" loading={loading}>
+                            SignUp
+                        </CustomButton>
 
+                    </div>
+                </Form>
+            )}
+        </Formik>
 
-                        </div>
-                    </Form>
-                )}
-            </Formik>
-
-        </div>
 
     );
 };

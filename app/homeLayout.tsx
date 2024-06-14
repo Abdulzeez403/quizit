@@ -20,6 +20,7 @@ interface IProps {
 const HomeLayout = ({ handleOpenModal, handleCloseModal, open }: IProps) => {
 
     const { currentUser, user, signOut, loading } = useAuthContext();
+
     const cookies = new Cookies();
     let userCookie = cookies.get("user");
 
@@ -137,18 +138,19 @@ const HomeLayout = ({ handleOpenModal, handleCloseModal, open }: IProps) => {
                 isOpen={open}
                 onClose={handleCloseModal}
             >
-                <Tabs defaultValue="signin" className="w-[350px] pr-4">
-                    <TabsList className="w-80 grid grid-cols-2">
-                        <TabsTrigger value="signin" className=''>SignIn</TabsTrigger>
-                        <TabsTrigger value="signup">SignUp</TabsTrigger>
+                <Tabs defaultValue="signin" className=" pr-2">
+                    <TabsList className=" w-90 grid grid-cols-2">
+                        <TabsTrigger value="signin" className='focus:bg-customSecondary'>SignIn</TabsTrigger>
+                        <TabsTrigger value="signup" className='active:bg-customSecondary'>SignUp</TabsTrigger>
                     </TabsList>
 
                     <TabsContent value="signin">
                         <SignInForm />
                     </TabsContent>
 
-                    <TabsContent value="signup">
+                    <TabsContent value="signup" >
                         <SignUpForm />
+
                     </TabsContent>
 
                 </Tabs>
