@@ -128,7 +128,7 @@ const PricingPlans = ({ handleOpenModal }: IProps) => {
             <div className='pb-10'>
                 <HeaderText title="Choose Your Pricing Plan" />
                 <div className='w-50'>
-                    <Text title="lorem20fsd fsfsdfkksdfks fsdjfsdfkdksfksdfksdklfkds sdfjdfjsdkfsdkfjsdf" />
+                    <Text title="Find the Perfect Fit By Selecting Best Plan" />
                 </div>
             </div>
             <div className="block justify-center  md:flex md:gap-x-20  lg:flex lg:gap-x-20 ">

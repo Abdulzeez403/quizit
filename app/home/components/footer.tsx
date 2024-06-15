@@ -17,8 +17,7 @@ export const Footer = () => {
                         <div>
                             {/* <Image src={Logo} alt="image" width={120} height={120} /> */}
                             <h1 className='font-extrabold text-white text-[1.2rem] '>QuizIt</h1>
-                            <h4 className='text-customSecondary w-52 pt-4 text-sm'>Start Learning with 1-on-1 experience
-                                Share your knowledge with others and earn</h4>
+                            <h4 className='text-customSecondary w-52 pt-4 text-sm'>QuizIt is a dynamic platform where you earn as you learn. Engage with interactive quizzes, expand your knowledge across various subjects.</h4>
 
                             {/* <div className='flex gap-x-2 items-center'>
                           <Image src={ios} alt="image" width={130} height={130} />
@@ -135,7 +134,7 @@ export const Footer = () => {
 
 
                 <div className=''>
-                    <h4 className='text-customSecondary text-center py-6 w-42 '>© Copyright 2024, All Rights Reserved <br /> by Walkmetru</h4>
+                    <h4 className='text-customSecondary text-center py-6 w-42 '>© Copyright 2024, All Rights Reserved <br /> by Codebaze</h4>
                 </div>
             </div>
         </div>

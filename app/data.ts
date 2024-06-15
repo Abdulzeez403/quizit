@@ -88,17 +88,17 @@ export const howitworkData: IHowItWorkProps[] = [
     {
         img: "/select.png",
         title: "Select the Subject",
-        desc: "you are to select the subject, time and number of question you ewant to answer"
+        desc: "Choose Your Focus By Selecting the Perfect Subject and Year"
     },
     {
         img: "/passed.png",
         title: "Pass the quiz",
-        desc: "you are to select the subject, time and number of question you ewant to answer"
+        desc: "Pass The Quiz With Flying Color and Proceed To Reward"
     },
     {
         img: "/coin.png",
         title: "Earn a Coins",
-        desc: "you are to select the subject, time and number of question you ewant to answer"
+        desc: "Earn Coin Based On Your Performance And Swap it With Either Airtime or Data"
     }
 ]
 

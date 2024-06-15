@@ -77,7 +77,7 @@ const DashboardView = () => {
                 {/* Other components */}
 
             </div>
-            <div className=''>
+            <div className='hidden md:flex lg:flex'>
                 <Barchart />
             </div>
 

@@ -111,7 +111,7 @@ export const RewardDetial = () => {
                             onClick={handlepayment}
                             className="w-full mt-4 bg-customPrimary text-customSecondary hover:bg-slate-300"
                         >
-                            Subscript
+                            Subscribe
                         </Button>
 
                     )

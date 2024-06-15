@@ -193,7 +193,7 @@ export const AuthProvider: React.FC<IProps> = ({ children }) => {
         cookies.remove('user');
         cookies.remove('token');
         router.push('/')
-        window.location.reload();
+        // window.location.reload();
 
     };
 

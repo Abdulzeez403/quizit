@@ -13,7 +13,7 @@ interface ITextProp {
 export const HeaderText = ({ className, title }: IHeaderProp) => {
     return (
         <div>
-            <h1 className={`${className} text-center  text-[2rem] font-bold  md:text-[2.3rem] lg:text-[2.3rem]`}>{title}</h1>
+            <h1 className={`${className} text-center  text-[1.5rem] font-bold  md:text-[2.3rem] lg:text-[2.3rem]`}>{title}</h1>
         </div>
     )
 }

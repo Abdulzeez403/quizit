@@ -115,7 +115,10 @@ const HomeLayout = ({ handleOpenModal, handleCloseModal, open }: IProps) => {
 
 
                                         <div className='
-                                        border-none p-2 rounded-md bg-customSecondary text-customPrimary' onClick={() => { signOut() }}>
+                                        border-none p-2 rounded-md bg-customSecondary text-customPrimary' onClick={() => {
+                                                signOut(),
+                                                window.location.reload();
+                                            }}>
                                             LogOut
                                         </div>
 

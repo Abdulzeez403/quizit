@@ -25,7 +25,7 @@ function SubjectSection() {
                 <div className='pb-10'>
                     <HeaderText title="Supported Subjects" className='text-white' />
                     <div className='w-50'>
-                        <Text title="lorem20fsd fsfsdfkksdfks fsdjfsdfkdksfksdfksdklfkds sdfjdfjsdkfsdkfjsdf" className="text-white" />
+                        <Text title="Explore Our Range: Supported Subjects for Your Learning Journey" className="text-white" />
                     </div>
                 </div>
 

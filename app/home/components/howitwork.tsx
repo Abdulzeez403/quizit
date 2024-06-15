@@ -9,8 +9,8 @@ export const Howitwork = () => {
         <div className='pageWidth py-10 '>
             <div className='pb-10'>
                 <HeaderText title="Here is How it Works" />
-                <div className='w-50'>
-                    <Text title="lorem30 dflkdkf dfkdskfksdfdkf dfd f dfdfkdfkdfk lorem30 lorem30 kke  euuere ererern kefjefk hjjsjfjf fjdjuueu jjfjfhsfh " />
+                <div className='w-50' >
+                    <Text title="Discover Step-by-Step Guide to Understanding How It Works" />
                 </div>
 
             </div>
