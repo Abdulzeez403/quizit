@@ -52,7 +52,7 @@ const HomeLayout = ({ handleOpenModal, handleCloseModal, open }: IProps) => {
 
             <div className='pageWidth'>
                 <div className="flex justify-between items-center py-6">
-                    <h3 className='text-white font-bold text-[1.5rem]'>QuizIt
+                    <h3 className='text-white font-bold text-[1.5rem]'>JambFocus
                     </h3>
 
                     <div className="hidden md:flex lg:flex">
@@ -60,6 +60,7 @@ const HomeLayout = ({ handleOpenModal, handleCloseModal, open }: IProps) => {
                             <Link href="/career" className=' text-[20px]'>Home</Link>
                             <Link href="/career" className='text-[20px]'>Blog</Link>
                             <Link href="/career" className='text-[20px]'>FAQ</Link>
+                            {userCookie?._id && (<Link href="/admin" className='text-[20px]'>Dashboard</Link>)}
                         </div>
                     </div>
                     <div>
@@ -108,7 +109,7 @@ const HomeLayout = ({ handleOpenModal, handleCloseModal, open }: IProps) => {
                                         </div>
                                         <div>
 
-                                            <Link href="/admin" className='text-[20px]'>Dashboard</Link>
+                                            {userCookie?._id && (<Link href="/admin" className='text-[20px]'>Dashboard</Link>)}
                                         </div>
 
 
@@ -117,7 +118,7 @@ const HomeLayout = ({ handleOpenModal, handleCloseModal, open }: IProps) => {
                                         <div className='
                                         border-none p-2 rounded-md bg-customSecondary text-customPrimary' onClick={() => {
                                                 signOut(),
-                                                window.location.reload();
+                                                    window.location.reload();
                                             }}>
                                             LogOut
                                         </div>

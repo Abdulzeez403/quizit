@@ -23,6 +23,7 @@ const QuestionTemplate = ({ questions, subject }: IQuestionProps) => {
     const [selectedAnswers, setSelectedAnswers] = useState<{ [key: number]: string | null }>({});
     const [theScore, setTheScore] = useState(0);
     const [open, setOpen] = useState(false);
+    const [timeLeft, setTimeLeft] = useState(20 * 60);
 
     const handleCloseModal = () => {
         setOpen(false);
@@ -37,6 +38,19 @@ const QuestionTemplate = ({ questions, subject }: IQuestionProps) => {
             handleOpenModal();
         }
     }, [loading]);
+
+    useEffect(() => {
+        if (timeLeft === 0) {
+            handleSubmit();
+            return;
+        }
+
+        const timer = setInterval(() => {
+            setTimeLeft(prevTime => prevTime - 1);
+        }, 1000);
+
+        return () => clearInterval(timer);
+    }, [timeLeft]);
 
     const handleReload = () => {
         window.location.reload();
@@ -110,13 +124,19 @@ const QuestionTemplate = ({ questions, subject }: IQuestionProps) => {
 
     const currentQ = questions[currentQuestion];
 
+    const formatTime = (seconds: number) => {
+        const minutes = Math.floor(seconds / 60);
+        const remainingSeconds = seconds % 60;
+        return `${minutes}:${remainingSeconds < 10 ? '0' : ''}${remainingSeconds}`;
+    };
+
     return (
         <div className=''>
             <div>
                 <div className='text-center border-2 bg-green-300 text-customPrimary rounded-lg text-lg'>
                     <div className='flex justify-between items-center py-4 px-5'>
                         <h4>{subject}</h4>
-                        <h4 className='text-white bg-black p-2 rounded-md'>20:00 min</h4>
+                        <h4 className='text-white bg-black p-2 rounded-md'>{formatTime(timeLeft)}</h4>
                     </div>
 
                     <h4 className="py-10">{currentQ?.question}</h4>
@@ -134,7 +154,7 @@ const QuestionTemplate = ({ questions, subject }: IQuestionProps) => {
                         Previous
                     </Button>
 
-                    <Button onClick={handleSubmit} className="bg-red-600 text-white px-4 py-2 rounded">
+                    <Button onClick={handleSubmit} className="bg-red-600 text-white px-4 py-2 rounded hover:bg-customSecondary">
                         Submit
                     </Button>
 
@@ -146,7 +166,7 @@ const QuestionTemplate = ({ questions, subject }: IQuestionProps) => {
             <div className='hidden mt-4 md:flex md:flex-wrap lg:flex lg:flex-wrap'>
                 {questions?.map((q, idx) => (
                     <div key={idx} className={`border-2 p-2 w-20 text-center ${getColorClass(idx)}`}>
-                        {q.id}
+                        {idx}
                     </div>
                 ))}
             </div>

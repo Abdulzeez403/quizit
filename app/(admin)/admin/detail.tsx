@@ -69,12 +69,7 @@ const DashboardView = () => {
                     change="+5.2% from last month"
                 />
 
-                <CardComponent
-                    title="Pending Cion"
-                    amount={user?.profile?.points}
-                    change="+5.2% from last month"
-                />
-                {/* Other components */}
+
 
             </div>
             <div className='hidden md:flex lg:flex'>
@@ -86,7 +81,7 @@ const DashboardView = () => {
             <div className='border-2 rounded-lg my-4'>
                 <div className='py-6 px-4 w-80'>
                     <h3 className="text-lg font-semibold">Attented Quizs</h3>
-                    <p className='text-sm'>Lorem ipsum dolor sit amet consectetur adipisicing</p>
+
                 </div>
                 <Table className='border-2'>
                     <TableHeader>

@@ -130,8 +130,7 @@ export const RewardDetial = () => {
             </div>
             <div className='border-2 rounded-lg my-4'>
                 <div className='py-6 px-4 w-80'>
-                    <h3 className="text-lg font-semibold">Transaction</h3>
-                    <p className='text-sm'>Lorem ipsum dolor sit amet consectetur adipisicing elit. Nostrum eius saepe aut</p>
+                    <h3 className="text-lg font-semibold">Transactions</h3>
                 </div>
 
 

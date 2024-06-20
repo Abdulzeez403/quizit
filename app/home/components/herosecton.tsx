@@ -32,11 +32,11 @@ export const Herosecton = ({ handleOpenModal }: IProps) => {
                     <div className=''>
                         <h4 className='text-center font-extrabold text-[2rem] text-white md:text-[4rem] md:text-start lg:text-[4rem] 
                         lg:text-start lg:w-[37rem] '>Daily Quiz, Daily Bonus while you sharpen  Your skill</h4>
-                        <p className='py-4 text-sm text-white text-center md:text-left lg:text-left'>QuiZit is platform to sharpen your examination skill both on jamb, wace and toher</p>
+                        <p className='py-4 text-sm text-white text-center md:text-left lg:text-left'>JambFocus is platform to sharpen your examination skill both on jamb, wace and toher</p>
                         <div className="flex justify-center md:block md:justify-start lg:block lg:justify-star">
 
                             {
-                                userCookie?._id ? (<Link href="/quiz">
+                                userCookie?._id ? (<Link href="/admin">
                                     <Button className='bg-white text-customPrimary hover:bg-slate-300'>Start Quiz</Button>
                                 </Link>) : (
                                     <Button className='bg-white text-customPrimary hover:bg-slate-300' onClick={handleOpenModal}>Start Quiz</Button>

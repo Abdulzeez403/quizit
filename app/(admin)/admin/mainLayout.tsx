@@ -100,16 +100,19 @@ export const SidebarComponent = ({ children }: IProps) => {
                                 'linear-gradient(180deg, rgba(166,240,255,1) 0%, rgba(220,250,255,1) 49%, rgba(230,252,255,1) 100%)',
                         }}
                     >
-                        <div className='flex justify-between align-center p-2 pb-3 bg-customSecondary'>
-                            <div className="block justify-center py-5 ">
-                                <div className="relative flex justify-center items-center">
-                                    <Image src={User} alt="Logo" width={70} height={70} className="rounded-full py-4" />
-                                    <span className={`absolute top-[4.2rem] right-12  text-white rounded-full px-2 py-1 text-xs font-bold 
+
+                        <div className="flex justify-center m-0 bg-customSecondary">
+                            <div className='flex justify-between align-center p-2 pb-3 bg-customSecondary'>
+                                <div className="block justify-center py-5 ">
+                                    <div className="relative flex justify-center items-center">
+                                        <Image src={User} alt="Logo" width={70} height={70} className="rounded-full py-4" />
+                                        <span className={`absolute top-[4.2rem] right-2  text-white rounded-full px-2 py-1 text-xs font-bold 
                                     ${user?.profile?.membership === "free" ? "bg-red-500" : "bg-green-500"}`}>{user?.profile?.membership}</span>
+                                    </div>
+
+
+                                    <h4 className='text-white text-sm py-2'>{user?.name}</h4>
                                 </div>
-
-
-                                <h4 className='text-white text-sm py-2'>abdulazeezsodiq403@gmail.com</h4>
                             </div>
 
 
@@ -148,10 +151,7 @@ export const SidebarComponent = ({ children }: IProps) => {
 
 
 
-                            {/* 
-                    <CustomSubMenuItem title="Examination"
-                        prefix={<PiExam color="primary" />}
-                    /> */}
+
 
 
 
@@ -182,21 +182,23 @@ export const SidebarComponent = ({ children }: IProps) => {
 
                                     className="sm:max-w-xs bg-customPrimary">
 
-
-                                    <div className='flex justify-between align-center p-2 pb-3 bg-customSecondary'>
-                                        <div className="block justify-center py-5 ">
-                                            <div className="relative flex justify-center items-center">
-                                                <Image src={User} alt="Logo" width={70} height={70} className="rounded-full py-4" />
-                                                <span className={`absolute top-[4.2rem] right-12  text-white rounded-full px-2 py-1 text-xs font-bold 
+                                    <div className="flex justify-center m-0 bg-customSecondary">
+                                        <div className='flex justify-between align-center p-2 pb-3 '>
+                                            <div className="block justify-center py-5 ">
+                                                <div className="relative flex justify-center items-center">
+                                                    <Image src={User} alt="Logo" width={70} height={70} className="rounded-full py-4" />
+                                                    <span className={`absolute top-[4.2rem] right-2  text-white rounded-full px-2 py-1 text-xs font-bold 
                                     ${user?.profile?.membership === "free" ? "bg-red-500" : "bg-green-500"}`}>{user?.profile?.membership}</span>
+                                                </div>
+
+
+                                                <h4 className='text-white text-sm py-2'>{user?.name}</h4>
                                             </div>
 
 
-                                            <h4 className='text-white text-sm py-2'>abdulazeezsodiq403@gmail.com</h4>
                                         </div>
-
-
                                     </div>
+
 
 
                                     <Menu>
@@ -232,7 +234,19 @@ export const SidebarComponent = ({ children }: IProps) => {
                             </Sheet>
                         </div>
 
-                        <Button onClick={() => signOut()} className="hover:bg-slate-300  bg-customPrimary text-customSecondary">LogOut</Button>
+                        <div className="gap-x-4">
+
+                            <Button className='bg-white text-customPrimary hover:bg-slate-300 border-2 border-customPrimary mx-2'>
+                                <Link href="/quiz">
+                                    Start Quiz
+                                </Link>
+
+                            </Button>
+
+                            <Button onClick={() => signOut()} className="hover:bg-slate-300  bg-customPrimary text-customSecondary">LogOut</Button>
+                        </div>
+
+
                     </div>
 
                     <div className="p-5">
@@ -242,8 +256,7 @@ export const SidebarComponent = ({ children }: IProps) => {
 
             </div >
 
-            <div></div>
 
-        </div >
+        </div>
     );
 }

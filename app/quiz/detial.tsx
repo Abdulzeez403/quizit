@@ -1,14 +1,13 @@
 "use client"
 import React, { useEffect, useState } from 'react';
 import QuestionTemplate from './components/questionTemplate';
-import Image from "next/image"
-import User from "../../public/user.png"
 import { ResponsiveDrawerDialog } from '../components/modal/responsivedrawer';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import LoadingSpinner from '../components/loader';
 import { Button } from '@/components/ui/button';
 import Cookies from 'universal-cookie';
 import { useAuthContext } from '../(auth)/context';
+import Link from "next/link"
 
 
 
@@ -116,10 +115,9 @@ export const QuizDetial = () => {
 
             <div className='bg-customPrimary'>
                 <div className=' py-2 pageWidth flex justify-between items-center'>
-                    <h3 className='text-white'>QuizIt</h3>
+                    <Link href="/" className='text-white'>JambFocus</Link>
                     <div className='flex gap-x-5 items-center text-white'>
                         <h4>{userCookie?.username}</h4>
-                        {/* <Image src={User} alt="image" className='rounded-full' width={40} height={40} /> */}
                     </div>
 
                 </div>
@@ -178,7 +176,7 @@ export const QuizDetial = () => {
 
                     </Select>
 
-                    <Button onClick={handleStartQuiz} className='bg-customPrimary text-white w-40'>
+                    <Button onClick={handleStartQuiz} className='bg-customPrimary text-white w-40  hover:bg-customSecondary'>
                         Start Quiz
                     </Button>
 

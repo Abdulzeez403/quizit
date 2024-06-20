@@ -82,7 +82,7 @@ const PricingPlans = ({ handleOpenModal }: IProps) => {
         {
             id: 3,
             title: 'Premium',
-            price: '3,000/mo',
+            price: '*****',
             features: [
                 '100 Questions',
                 'Mutilple Convertion',
@@ -112,9 +112,14 @@ const PricingPlans = ({ handleOpenModal }: IProps) => {
                     ))}
                 </div>
                 {userCookie?._id ? (
-                    <Button className="bg-white text-black font-bold py-2 px-4 rounded " onClick={() => handlepayment()}>Select Plan</Button>
+                    <Button className={`bg-white text-black font-bold py-2 px-4 rounded ${title === "Basic" ? "hidden" : "flex"}`} onClick={() => handlepayment()}>
+                        {title === "Premium" ? (<h4>Coming Soon</h4>) : (
+                            < h4 >Select Plan</h4>)}</Button>
                 ) : (
-                    <Button className="bg-white text-black font-bold py-2 px-4 rounded " onClick={() => handleOpenModal()}>Select Plan</Button>
+                    <Button className={`bg-white text-black font-bold py-2 px-4 rounded ${title === "Basic" ? "hidden" : "flex"}`} onClick={() => handleOpenModal()}>
+                        {title === "Premium" ? (<h4>Coming Soon</h4>) : (
+                            < h4 >Select Plan</h4>)}</Button>
+
                 )
 
                 }
