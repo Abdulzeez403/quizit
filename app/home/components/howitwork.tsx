@@ -26,7 +26,7 @@ export const Howitwork = () => {
                                 <Image src={d.img} alt={d.img} width={100} height={100} />
                             </div>
 
-                            {/* <HeaderText title={d.title} className='text-sm md:text-lg lg:text-lg' /> */}
+
 
                             <div>
                                 <h4 className='text-center py-2 font-bold text-md'>{d.title}</h4>

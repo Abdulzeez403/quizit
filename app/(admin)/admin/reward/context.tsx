@@ -140,7 +140,7 @@ export const BuyAirtimeProvider: React.FC<IProps> = ({ children }) => {
             }
         } catch (error) {
             console.error("Error:", error);
-            notify.error("Error")
+            // notify.error("Error")
         }
     };
 

@@ -53,19 +53,21 @@ const DashboardView = () => {
             <div className="grid gap-4 md:grid-cols-2 md:gap-8 lg:grid-cols-4 pt-5">
                 <CardComponent
                     title="Total Coin"
-                    amount={user?.profile?.points}
+                    amount={Number(user?.profile?.points)}
+
                     change="+20.1% from last month"
                     icon={<CiCoinInsert color="yellow" size={30} />}
                 />
                 <CardComponent
                     title="Total Transcations"
-                    amount={0.00}
+                    amount={Number(user?.profile?.rewardCount)}
+
                     change="+5.2% from last month"
                 />
 
                 <CardComponent
                     title="Converted Coin"
-                    amount={0.00}
+                    amount={Number(user?.profile?.withdrawReward)}
                     change="+5.2% from last month"
                 />
 

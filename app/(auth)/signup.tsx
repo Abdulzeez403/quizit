@@ -15,6 +15,7 @@ interface SignUpFormValues {
     gender: string;
     username: string;
     password: string;
+    phone: string
 
 
 
@@ -25,7 +26,9 @@ const SignUpFormValues = Yup.object().shape({
     gender: Yup.string().required('Required'),
     username: Yup.string().required('Required'),
     email: Yup.string().email('Invalid email address').required('Required'),
-    password: Yup.string().min(6, 'Must be at least 6 characters').required('Required')
+    password: Yup.string().min(6, 'Must be at least 6 characters').required('Required'),
+    phone: Yup.string().required('Required'),
+
 
 });
 
@@ -39,6 +42,7 @@ export const SignUpForm: React.FC = () => {
         password: '',
         username: '',
         gender: '',
+        phone:""
 
     };
 
@@ -59,6 +63,7 @@ export const SignUpForm: React.FC = () => {
                     <FormField label="Name" name="name" className="my-4" />
                     <FormField label="Email" name="email" className="my-4" />
                     <FormField label="Username" name="username" className="my-4" />
+                        <FormField label="Phone" name="phone" className="my-4" />
                     <div className='w-full'>
                         <GenderSelect label="Gender" name="gender" />
 

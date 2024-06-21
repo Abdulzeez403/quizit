@@ -80,7 +80,7 @@ const HomeLayout = ({ handleOpenModal, handleCloseModal, open }: IProps) => {
 
                             ) : (
                                 <div className="pl-4 flex ">
-                                    <Button onClick={handleOpenModal} className="text-customPrimary bg-customSecondary hover:bg-slate-300">Login/Register</Button>
+                                    <Button onClick={handleOpenModal} className="text-customPrimary bg-customSecondary hover:bg-slate-300 text-md">Login/Register</Button>
                                 </div>
 
                             )
@@ -94,7 +94,7 @@ const HomeLayout = ({ handleOpenModal, handleCloseModal, open }: IProps) => {
                             </SheetTrigger>
                             <SheetContent>
                                 <SheetHeader>
-                                    <SheetTitle>QiuzIt</SheetTitle>
+                                    <SheetTitle>JambFocus</SheetTitle>
                                     <div className="block items-center">
                                         <div>
                                             <Link href="/" className=' text-[20px]'>Home</Link>

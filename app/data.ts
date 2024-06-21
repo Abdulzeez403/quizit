@@ -35,7 +35,8 @@ interface Profile {
     points: number;
     membership: string;
     badges: string[];
-    rewardCount: number
+    rewardCount: number,
+    withdrawReward: number
 }
 
 export interface IPerformance {
@@ -74,7 +75,7 @@ export const NetworkProviders = [
     },
     {
         value: "glo",
-        img: "/mtn.png",
+        img: "/glo.jpg",
     },
     {
         value: "9mobile",
@@ -96,9 +97,9 @@ export const howitworkData: IHowItWorkProps[] = [
         desc: "Pass The Quiz With Flying Color and Proceed To Reward"
     },
     {
-        img: "/coin.png",
+        img: "/coins-stack.png",
         title: "Earn a Coins",
-        desc: "Earn Coin Based On Your Performance And Swap it With Either Airtime or Data"
+        desc: "Earn Coin And Swap it With Either Airtime or Data and more"
     }
 ]
 

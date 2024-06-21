@@ -19,7 +19,7 @@ const AirtimeFormSchema = Yup.object().shape({
     phoneNumber: Yup.string().required('Required'),
 });
 
-const predefinedAmounts = ['200', '100', '500', '1000'];
+const predefinedAmounts = ['100', '200', '500', '1000'];
 
 export const AirtimeForm: React.FC = () => {
     const { currentUser, user } = useAuthContext();
@@ -64,6 +64,10 @@ export const AirtimeForm: React.FC = () => {
                     type: `${selectedAirtime} Airtime`,
                     amount: Number(selectedAmount)
                 });
+
+                if (selectedAmount === "") {
+                    return notify.error("amount is required!")
+                }
                 notify.success("Airtime purchased successfully!");
                 getReward(userCookie._id)
             } catch (error) {
@@ -121,7 +125,7 @@ export const AirtimeForm: React.FC = () => {
                                 }}
                                 style={{
                                     position: 'relative',
-                                    border: selectedAmount === amount ? '2px solid green' : 'none',
+                                    border: selectedAmount === amount ? '2px solid green' : '2px solid black',
                                     borderRadius: '4px',
                                     padding: '10px 20px',
                                     cursor: 'pointer',

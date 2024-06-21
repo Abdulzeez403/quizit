@@ -23,7 +23,7 @@ const PricingPlans = ({ handleOpenModal }: IProps) => {
 
     const router = useRouter()
 
-    const { currentUser, user, createPayment, getPayment, paymentlink } = useAuthContext();
+    const { currentUser, user, createPayment, paymentlink } = useAuthContext();
     const cookies = new Cookies();
     let userCookie = cookies.get("user");
     let theLink = paymentlink

@@ -10,11 +10,10 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import { AirtimeForm } from './forms/airtime'
 import { useAuthContext } from '@/app/(auth)/context';
 import Cookies from 'universal-cookie';
-import axios from 'axios';
-import { IReward } from '@/app/data';
 import RewardTable from './rewardTable';
 import { useBuyAirtimeContext } from './context';
 import { useRouter } from 'next/navigation';
+import { DataBundleForm } from './forms/data';
 
 
 export const RewardDetial = () => {
@@ -45,14 +44,7 @@ export const RewardDetial = () => {
                 customerName: user.name,
                 customerEmail: user.email
             };
-            console.log(payload);
-
             await createPayment(userId, payload);
-            // await getPayment(userId);
-            console.log(paymentlink);
-
-
-            router.push(theLink);
         } catch (error) {
             console.error("Error processing payment:", error);
         }
@@ -80,19 +72,19 @@ export const RewardDetial = () => {
             <div className="grid gap-4 md:grid-cols-2 md:gap-8 lg:grid-cols-4 pt-2">
                 <CardComponent
                     title="Total Reward"
-                    amount={Number(user?.profile?.points)}
+                    amount={Number(user?.profile?.rewardCount)}
                     change="+20.1% from last month"
                     icon={<CiCoinInsert color="yellow" size={30} />}
                 />
                 <CardComponent
-                    title="Current Reward"
-                    amount={0.00}
+                    title="Current Coin"
+                    amount={Number(user?.profile?.points)}
                     change="+5.2% from last month"
                 />
 
                 <CardComponent
-                    title="Withdraw Reward"
-                    amount={0.00}
+                    title="Withdraw Coin"
+                    amount={Number(user?.profile?.withdrawReward)}
                     change="+5.2% from last month"
                 />
 
@@ -179,8 +171,7 @@ export const RewardDetial = () => {
                         <AirtimeForm />
                     </TabsContent>
                     <TabsContent value="data">
-                        <h4>data</h4>
-
+                        <DataBundleForm />
                     </TabsContent>
 
                 </Tabs>

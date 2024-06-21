@@ -63,9 +63,12 @@ export const QuizDetial = () => {
                 method: 'GET',
             });
             const result = await response.json();
+            console.log(result, "The question")
+
 
             if (result.status === 200 && Array.isArray(result.data)) {
                 setQuestions(result.data);
+                console.log(result, "The question")
             } else {
                 console.error('Unexpected data format:', result);
                 setQuestions([]); // handle empty or unexpected data

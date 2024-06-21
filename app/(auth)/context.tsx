@@ -86,10 +86,13 @@ export const AuthProvider: React.FC<IProps> = ({ children }) => {
             notify.success(response.data.msg);
 
 
-        } catch (error) {
-            setLoading(false)
-            notify.error("Error signing up:");
-
+        } catch (error: any) {
+            setLoading(false);
+            if (error.response && error.response.data && error.response.data.msg) {
+                notify.error(error.response.data.msg);
+            } else {
+                notify.error("An unknown error occurred.");
+            }
             throw error;
         }
     };
@@ -102,10 +105,12 @@ export const AuthProvider: React.FC<IProps> = ({ children }) => {
             const response = await axios.post(`${port}/user`, userData);
             notify.success('Sign up successful');
             setLoading(false);
-        } catch (error) {
-            setLoading(false)
-            notify.error('Error signing up');
-            console.error('Error signing up:', error);
+        } catch (error: any) {
+            if (error.response && error.response.data && error.response.data.msg) {
+                notify.error(error.response.data.msg);
+            } else {
+                notify.error("An unknown error occurred.");
+            }
             throw error;
         }
     };

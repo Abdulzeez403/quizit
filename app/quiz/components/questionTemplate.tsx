@@ -133,13 +133,14 @@ const QuestionTemplate = ({ questions, subject }: IQuestionProps) => {
     return (
         <div className=''>
             <div>
-                <div className='text-center border-2 bg-green-300 text-customPrimary rounded-lg text-lg'>
+                <div className='text-center border-2 bg-customPrimary text-customSecondary rounded-lg text-lg'>
                     <div className='flex justify-between items-center py-4 px-5'>
-                        <h4>{subject}</h4>
-                        <h4 className='text-white bg-black p-2 rounded-md'>{formatTime(timeLeft)}</h4>
+                        <h4 className="text-white">{subject}</h4>
+                        <h4 className='bg-white text-customPrimary p-2 rounded-md'>{formatTime(timeLeft)}</h4>
                     </div>
+                    <h4 className="py-6 text-white">{currentQ?.section}</h4>
 
-                    <h4 className="py-10">{currentQ?.question}</h4>
+                    <h4 className="pb-2 text-white">{currentQ?.question}</h4>
                 </div>
                 <div className='block justify-center md:grid md:grid-cols-2 md:gap-x-[20rem] lg:grid lg:grid-cols-2 lg:gap-x-[20rem] pt-5'>
                     {Object.entries(currentQ.option).map(([key, option], idx) => (
@@ -163,13 +164,14 @@ const QuestionTemplate = ({ questions, subject }: IQuestionProps) => {
                     </Button>
                 </div>
             </div>
-            <div className='hidden mt-4 md:flex md:flex-wrap lg:flex lg:flex-wrap'>
+            <div className='grid grid-cols-6 w-[100%] mt-4 md:flex md:flex-wrap lg:flex lg:flex-wrap'>
                 {questions?.map((q, idx) => (
                     <div key={idx} className={`border-2 p-2 w-20 text-center ${getColorClass(idx)}`}>
-                        {idx}
+                        {idx + 1}
                     </div>
                 ))}
             </div>
+
             <div>
                 {
                     loading ? (
