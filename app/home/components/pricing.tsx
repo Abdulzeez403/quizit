@@ -112,11 +112,16 @@ const PricingPlans = ({ handleOpenModal }: IProps) => {
                     ))}
                 </div>
                 {userCookie?._id ? (
-                    <Button className={`bg-white text-black font-bold py-2 px-4 rounded ${title === "Basic" ? "hidden" : "flex"}`} onClick={() => handlepayment()}>
+                    <Button className={`bg-white text-black font-bold py-2 px-4 rounded ${title === "Basic" ? "hidden" : "flex"}`} 
+                    disabled={title === "Premium" ? true: false}
+                    onClick={() => handlepayment()}>
+
                         {title === "Premium" ? (<h4>Coming Soon</h4>) : (
                             < h4 >Select Plan</h4>)}</Button>
                 ) : (
-                    <Button className={`bg-white text-black font-bold py-2 px-4 rounded ${title === "Basic" ? "hidden" : "flex"}`} onClick={() => handleOpenModal()}>
+                    <Button className={`bg-white text-black font-bold py-2 px-4 rounded ${title === "Basic" ? "hidden" : "flex"}`} 
+                    disabled={title === "Premium" ? true: false}
+                    onClick={() => handleOpenModal()}>
                         {title === "Premium" ? (<h4>Coming Soon</h4>) : (
                             < h4 >Select Plan</h4>)}</Button>
 

@@ -62,7 +62,7 @@ export const BuyAirtimeProvider: React.FC<IProps> = ({ children }) => {
 
     const s_api_key = "82f7a4ee19cbf4a71c267ef390c378ae";
     const s_secret = "SK_108b772e5caa5f683e02eafc2c7ab94d3ba69abab7f";
-    const purchaseAirtimeUrl = "https://sandbox.vtpass.com/api/"
+    const purchaseAirtimeUrl = "https://sandbox.vtpass.com/api/pay"
     const querySuccessResponseUrl = "https://sandbox.vtpass.com/api/requery"
 
     const resetError = () => {

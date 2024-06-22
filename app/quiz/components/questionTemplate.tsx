@@ -138,9 +138,11 @@ const QuestionTemplate = ({ questions, subject }: IQuestionProps) => {
                         <h4 className="text-white">{subject}</h4>
                         <h4 className='bg-white text-customPrimary p-2 rounded-md'>{formatTime(timeLeft)}</h4>
                     </div>
-                    <h4 className="py-6 text-white">{currentQ?.section}</h4>
+                    <h4 className="py-6 text-white"
+                        dangerouslySetInnerHTML={{ __html: currentQ?.section }}>
+                    </h4>
 
-                    <h4 className="pb-2 text-white">{currentQ?.question}</h4>
+                    <h4 className="pb-2 text-white" dangerouslySetInnerHTML={{ __html: currentQ?.question }}></h4>
                 </div>
                 <div className='block justify-center md:grid md:grid-cols-2 md:gap-x-[20rem] lg:grid lg:grid-cols-2 lg:gap-x-[20rem] pt-5'>
                     {Object.entries(currentQ.option).map(([key, option], idx) => (
