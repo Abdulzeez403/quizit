@@ -6,11 +6,21 @@ interface IHowItWorkProps {
     desc?: string
 }
 
-export interface IBuyAirtime {
+export interface IAirtime {
     amount: number;
-    phoneNumber: number;
-    serviceID: string;
+    phone: number;
+    network: string;
+
 }
+
+export interface IData {
+    phone: number;
+    network?: string;
+    dataPlan?: string
+
+}
+
+
 
 export interface IQuestion {
     answer: string;

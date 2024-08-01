@@ -1,43 +1,24 @@
 "use client"
 import axios from "axios";
-import { generateRequestID } from "../../../../services"
-import { IBuyAirtime, IReward } from '../../../data';
+import { IAirtime, IData, IReward } from '../../../data';
 import React, { createContext, useContext, useState } from 'react'
 import Cookies from "universal-cookie";
 import { notify } from "@/app/components/toast";
-interface IProp {
+interface RewardContextState {
     loading: boolean;
     success: boolean;
     isError: boolean;
     reward: IReward[];
     resetError: () => void;
-    buyAirtime: (values: IBuyAirtime) => void;
-    getAirtimeQuery: (request_id: any) => void;
     createReward: (userId: any, values: any) => void;
     getReward: (userId: any) => void;
+    rewardData: (id: string, values: IData) => Promise<void>;
+    rewardAirtime: (id: string, values: IAirtime) => Promise<void>;
 
 
 
 }
-const BuyAirtimeContext = createContext<IProp>({
-    loading: false,
-    success: false,
-    isError: false,
-    reward: [],
-    resetError: () => { },
-    buyAirtime: () => { },
-
-    getAirtimeQuery: (request_id: any) => {
-        return request_id
-    },
-    createReward(userId, values) {
-
-    },
-    getReward(userId) {
-
-    }
-
-});
+const BuyAirtimeContext = createContext<RewardContextState | undefined>(undefined);
 
 export const useBuyAirtimeContext = () => {
     let context = useContext(BuyAirtimeContext);
@@ -58,12 +39,8 @@ export const BuyAirtimeProvider: React.FC<IProps> = ({ children }) => {
     const [reward, setReward] = useState<IReward[]>([]);
     const cookies = new Cookies()
 
-
-
-    const s_api_key = "82f7a4ee19cbf4a71c267ef390c378ae";
-    const s_secret = "SK_108b772e5caa5f683e02eafc2c7ab94d3ba69abab7f";
-    const purchaseAirtimeUrl = "https://sandbox.vtpass.com/api/pay"
-    const querySuccessResponseUrl = "https://sandbox.vtpass.com/api/requery"
+    // const port = process.env.BACKENDURL || "";
+    const port = 'https://jamb-past-question.vercel.app/api'
 
     const resetError = () => {
         setIsError(false);
@@ -71,115 +48,44 @@ export const BuyAirtimeProvider: React.FC<IProps> = ({ children }) => {
         setSuccess(false)
     };
 
-    const buyAirtime = async ({
-        amount,
-        phoneNumber,
-        serviceID,
-    }: IBuyAirtime) => {
 
-        setIsError(false)
-        setSuccess(false)
-        setLoading(false)
+    const rewardData = async (id: string, values: IData) => {
         try {
-            setLoading(true)
-            const id = generateRequestID();
-            const requestBody = {
-                amount: amount,
-                phone: phoneNumber,
-                serviceID: serviceID,
-                request_id: id,
-            };
-
-            // Make the purchase request
-            const purchaseResponse = await fetch(purchaseAirtimeUrl, {
-                method: "POST",
+            const { token } = cookies.get("token");
+            const response = await axios.post(`${port}/reward/data/${id}`,
+                values, {
                 headers: {
-                    "Content-Type": "application/json",
-                    "api-key": s_api_key,
-                    "secret-key": s_secret,
-                },
-                body: JSON.stringify(requestBody),
-            });
-
-            if (!purchaseResponse.ok) {
-                notify.error("Purchase request failed");
-                throw new Error("Purchase request failed");
-            }
-
-            const purchaseData = await purchaseResponse.json();
-            console.log("Purchase Response:", purchaseData);
-
-            // Check if purchase was successful
-            if (purchaseData.code === "000") {
-                console.log("Purchase successful");
-
-
-                const requeryResponse = await fetch(querySuccessResponseUrl, {
-                    method: "POST",
-                    headers: {
-                        "Content-Type": "application/json",
-                        "api-key": s_api_key,
-                        "secret-key": s_secret,
-                    },
-                    body: JSON.stringify({ request_id: id }),
-                });
-
-                if (!requeryResponse.ok) {
-                    throw new Error("Transaction status query failed");
+                    'x-auth-token': token
                 }
-
-                const requeryData = await requeryResponse.json();
-                console.log("Transaction Status:", requeryData);
-                setSuccess(true)
-                setLoading(false)
-                console.log(success)
-            } else {
-                console.error("Purchase failed:", purchaseData.errors);
-                notify.error("Purchase failed")
-                setIsError(true)
             }
-        } catch (error) {
-            console.error("Error:", error);
-            // notify.error("Error")
+            );
+            notify.success(response.data.msg);
+        } catch (error: any) {
+            notify.error(error?.response.data.msg);
+            console.log(error);
         }
     };
 
-    const getAirtimeQuery = (request_id: any) => {
-        const url = 'https://sandbox.vtpass.com/api/requery'
-        const s_api_key = "82f7a4ee19cbf4a71c267ef390c378ae"; // Replace with your actual API key
-        const s_secret = "SK_108b772e5caa5f683e02eafc2c7ab94d3ba69abab7f"; // Replace with your actual secret key
-
-        const requestData = {
-            request_id: request_id // Replace 'YOUR_REQUEST_ID_HERE' with the actual request ID
-        };
-
-        fetch(url, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                "api-key": s_api_key,
-                "secret-key": s_secret,
-            },
-            body: JSON.stringify(requestData)
-        })
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error('Network response was not ok');
+    const rewardAirtime = async (id: string, values: IAirtime) => {
+        try {
+            const { token } = cookies.get("token");
+            const response = await axios.post(`${port}/reward/airtime/${id}`,
+                values, {
+                headers: {
+                    'x-auth-token': token
                 }
-                return response.json();
-            })
-            .then(data => {
-                // Handle the response data
-                console.log('Response:', data);
-            })
-            .catch(error => {
-                // Handle errors
-                console.error('Error:', error);
             });
+            notify.success(response.data.msg);
+            console.log(values)
+        } catch (error: any) {
+            notify.error(error?.data?.msg);
+            console.log(error);
+        }
+    };
 
-    }
+
+
     const createReward = async (userId: any, values: any) => {
-        const port = "https://jamb-past-question.onrender.com/api";
 
         try {
 
@@ -201,7 +107,7 @@ export const BuyAirtimeProvider: React.FC<IProps> = ({ children }) => {
         const { token } = cookies.get("token");
 
         try {
-            const res = await axios.get(`https://jamb-past-question.onrender.com/api/reward/${userId}`, {
+            const res = await axios.get(`${port}/reward/${userId}`, {
                 headers: {
                     'x-auth-token': token
                 }
@@ -218,9 +124,8 @@ export const BuyAirtimeProvider: React.FC<IProps> = ({ children }) => {
     return (
         <BuyAirtimeContext.Provider
             value={{
-                loading, success, isError,
-                buyAirtime, getAirtimeQuery, resetError,
-                createReward, getReward, reward
+                loading, success, isError, resetError,
+                createReward, getReward, reward, rewardData, rewardAirtime
             }}>
             {children}
         </BuyAirtimeContext.Provider>
